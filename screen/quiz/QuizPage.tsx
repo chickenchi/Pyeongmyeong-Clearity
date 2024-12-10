@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     margin: 20,
 
     fontSize: 30,
-    fontFamily: 'GowunBatang',
+    fontFamily: 'Cafe24Oneprettynight',
   },
   exSection: {
     width: '100%',

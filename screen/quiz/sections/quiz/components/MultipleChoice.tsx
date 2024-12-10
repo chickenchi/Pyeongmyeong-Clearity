@@ -1,8 +1,8 @@
-import {Question} from '../../../../Quiz/Data/questionList';
+import {question} from '@quiz/data/questionList';
 import {ScrollView, View, Text, StyleSheet} from 'react-native';
 
 interface MultipleChoice {
-  currentQuestion: Question;
+  currentQuestion: question;
   readOnly: boolean;
 }
 
@@ -16,7 +16,7 @@ const MultipleChoice: React.FC<MultipleChoice> = ({
         <View style={styles.SelectContainer}>
           {['item1', 'item2', 'item3', 'item4', 'item5'].map(
             (item, index) =>
-              currentQuestion[item as keyof Question] && (
+              currentQuestion[item as keyof question] && (
                 <View
                   key={index}
                   style={[styles.item, readOnly && {width: '100%'}]}>
@@ -28,11 +28,11 @@ const MultipleChoice: React.FC<MultipleChoice> = ({
                           color: '#E04E92',
                         },
                     ]}>
-                    {`①②③④⑤`[index]} {currentQuestion[item as keyof Question]}
+                    {`①②③④⑤`[index]} {currentQuestion[item as keyof question]}
                   </Text>
                   {readOnly && (
                     <Text style={styles.reason}>
-                      {currentQuestion[`reason${index + 1}` as keyof Question]}
+                      {currentQuestion[`reason${index + 1}` as keyof question]}
                     </Text>
                   )}
                 </View>

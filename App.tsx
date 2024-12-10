@@ -14,9 +14,15 @@ import {QuizPage} from '@quiz/QuizPage';
 import {AlertProvider} from '@components/common-popups/alert/AlertProvider';
 import {AlertManager} from '@components/common-popups/alert/AlertManager';
 
+import {useFonts} from 'expo-font';
+
 const Stack = createNativeStackNavigator<CommonType.RootStackPageList>();
 
 const App: React.FC = () => {
+  const [fontsLoaded] = useFonts({
+    Cafe24Oneprettynight: require('@assets/fonts/Cafe24Oneprettynight/Cafe24Oneprettynight.ttf'),
+  });
+
   return (
     <NavigationContainer>
       <RecoilRoot>

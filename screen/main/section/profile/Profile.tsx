@@ -1,5 +1,5 @@
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {
+  Image,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -12,16 +12,11 @@ import Tab from '@main/footer/Tab';
 import MainHeader from '@main/header/MainHeader';
 import {useAlert} from '@components/common-popups/alert/AlertProvider';
 import {getData} from '@utils/DataSetting';
+import {ProfilePic, Setting} from '@assets/svgs/ProfileSvg';
 
-interface ProfilePageProps {
-  navigation: NativeStackNavigationProp<any, 'default'>;
-}
-
-let no = 0;
-
-const Profile = ({navigation}: ProfilePageProps) => {
-  const [solved, updateSolve] = useState<any>(null);
+const Profile = () => {
   const [corrected, updateCorrect] = useState<any>(null);
+  const [solved, updateSolve] = useState<any>(null);
   const [wronged, updateWrong] = useState<any>(null);
 
   useFocusEffect(
@@ -48,7 +43,9 @@ const Profile = ({navigation}: ProfilePageProps) => {
       </View>
 
       <View style={styles.profile}>
-        <View style={styles.profilePic}></View>
+        <View style={styles.profilePic}>
+          <ProfilePic />
+        </View>
         <View style={styles.info}>
           <View style={styles.call}>
             <Text style={styles.callText}>새싹 📗</Text>
@@ -65,7 +62,9 @@ const Profile = ({navigation}: ProfilePageProps) => {
                 type: 'okay',
                 onConfirm: () => {},
               });
-            }}></TouchableOpacity>
+            }}>
+            <Setting />
+          </TouchableOpacity>
         </View>
       </View>
 

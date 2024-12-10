@@ -22,8 +22,7 @@ import {
   Cols,
   Cell,
 } from 'react-native-table-component';
-import {Multiset} from 'algorithm/Multiset';
-import Hr from '@components/ui/Hr';
+import {Multiset} from '@utils/Multiset';
 
 interface CrosswordPageProps {
   navigation: NativeStackNavigationProp<any, 'default'>;

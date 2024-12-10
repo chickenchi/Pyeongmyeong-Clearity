@@ -1,16 +1,6 @@
 import {MutableRefObject} from 'react';
-import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-  ScrollView,
-  TextInput,
-} from 'react-native';
-import {Question} from '@quiz/data/questionList';
+import {Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {question} from '@quiz/data/QuestionList';
 import {Draw, Write} from '@assets/svgs/QuizSvg';
 
 interface AvailableBoard {
@@ -41,11 +31,11 @@ export const AvailableBoard = ({setSubscreen, subscreen}: AvailableBoard) => {
 
 interface SelectQuestion {
   readOnly: boolean;
-  questionList: Question[];
+  questionList: question[];
   currentQuestionNo: string;
   setIsPlaying: (value: boolean) => void;
   setCurrentQuestionNo: (value: string) => void;
-  setCurrentQuestion: (value: Question) => void;
+  setCurrentQuestion: (value: question) => void;
   setSubscreen: (value: string) => void;
 
   setTagList: (value: JSX.Element[]) => void;
@@ -234,7 +224,7 @@ export const styles = StyleSheet.create({
   },
 
   bolding: {
-    fontFamily: 'GowunBatangBold',
+    fontFamily: 'Cafe24Oneprettynight',
   },
 
   italic: {

@@ -1,16 +1,16 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "baseUrl": "@screen/",
+    "baseUrl": "./",
     "paths": {
-      "@account/*": ["account/*"],
-      "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"],
-      "@main/*": ["main/*"],
-      "@quiz/*": ["quiz/*"],
-      "@utils/*": ["utils/*"],
-      "@word/*": ["word/*"],
-      "@atoms/*": ["atoms/*"]
+      "@account/*": ["./screen/account/*"],
+      "@assets/*": ["./screen/assets/*"],
+      "@components/*": ["./screen/components/*"],
+      "@main/*": ["./screen/main/*"],
+      "@quiz/*": ["./screen/quiz/*"],
+      "@utils/*": ["./screen/utils/*"],
+      "@word/*": ["./screen/word/*"],
+      "@atoms/*": ["./screen/atoms/*"]
     }
   }
 }

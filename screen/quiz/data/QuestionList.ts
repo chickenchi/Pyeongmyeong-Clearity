@@ -1,4 +1,4 @@
-export interface Question {
+export interface question {
   questionNo: string;
   question: string;
   type: '다지선다' | '입력' | 'OX';
@@ -23,7 +23,7 @@ export interface Question {
   Description?: string;
 }
 
-export const questionList: Question[] = [
+export const questionList: question[] = [
   {
     questionNo: '01',
     question: `다음 중, 음운의 개수가 변하는 것은?`,

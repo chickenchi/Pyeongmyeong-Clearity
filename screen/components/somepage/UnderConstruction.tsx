@@ -5,7 +5,7 @@ const UnderConstruction = () => {
   return (
     <SafeAreaView style={styles.BG}>
       <Image
-        //source={require('assets/images/under_construction/under_construction.png')}
+        source={require('@assets/images/under_construction/under_construction.png')}
         style={styles.construction}
       />
       <Text style={styles.description}>여긴 공사 중이에요!</Text>
