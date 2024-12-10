@@ -15,6 +15,7 @@ import {AlertProvider} from '@components/common-popups/alert/AlertProvider';
 import {AlertManager} from '@components/common-popups/alert/AlertManager';
 
 import {useFonts} from 'expo-font';
+import {StartPopupProvider} from '@main/components/popup/StartPopupProvider';
 
 const Stack = createNativeStackNavigator<CommonType.RootStackPageList>();
 
@@ -27,19 +28,21 @@ const App: React.FC = () => {
     <NavigationContainer>
       <RecoilRoot>
         <AlertProvider>
-          <AlertManager />
-          <Stack.Navigator
-            initialRouteName="profile"
-            screenOptions={{headerShown: false}}>
-            <Stack.Screen name="intro" component={Intro} />
-            <Stack.Screen name="login" component={LoginPage} />
-            <Stack.Screen name="register" component={RegisterPage} />
-            <Stack.Screen name="home" component={Home} />
-            <Stack.Screen name="profile" component={Profile} />
-            <Stack.Screen name="ranking" component={Ranking} />
-            <Stack.Screen name="setting" component={Setting} />
-            <Stack.Screen name="quiz" component={QuizPage} />
-          </Stack.Navigator>
+          <StartPopupProvider>
+            <AlertManager />
+            <Stack.Navigator
+              initialRouteName="home"
+              screenOptions={{headerShown: false}}>
+              <Stack.Screen name="intro" component={Intro} />
+              <Stack.Screen name="login" component={LoginPage} />
+              <Stack.Screen name="register" component={RegisterPage} />
+              <Stack.Screen name="home" component={Home} />
+              <Stack.Screen name="profile" component={Profile} />
+              <Stack.Screen name="ranking" component={Ranking} />
+              <Stack.Screen name="setting" component={Setting} />
+              <Stack.Screen name="quiz" component={QuizPage} />
+            </Stack.Navigator>
+          </StartPopupProvider>
         </AlertProvider>
       </RecoilRoot>
     </NavigationContainer>

@@ -10,14 +10,12 @@ import {List} from '@assets/svgs/HeaderSvg';
 import {Setting, Shopping, Help} from '@assets/svgs/ListSvg';
 import {useRecoilState} from 'recoil';
 import {showListState} from '@atoms/quiz/QuizAtom';
-import SelectPopup from '@main/components/popups/StartSelectPopup';
-
 /* 위치 잘못 잡힘 */
 
 const QuizList = () => {
   const [isListVisible, setIsListVisible] = useRecoilState(showListState);
-  const [request, req] = useState<string>('');
-  const [type, editType] = useState<string>('');
+  const [, req] = useState<string>('');
+  const [, editType] = useState<string>('');
 
   const no = useRef(0);
 
@@ -29,7 +27,6 @@ const QuizList = () => {
 
   return (
     <SafeAreaView style={styles.Header}>
-      <SelectPopup request={request} type={type} />
       <TouchableOpacity
         onPress={() => setIsListVisible(!isListVisible)}
         style={styles.List}>

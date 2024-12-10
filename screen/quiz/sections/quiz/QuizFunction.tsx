@@ -51,7 +51,6 @@ export const SelectQuestion = ({
   setIsPlaying,
   setCurrentQuestionNo,
   setCurrentQuestion,
-
   setTagList,
   setSubscreen,
   setRequest,
@@ -69,14 +68,21 @@ export const SelectQuestion = ({
   }
 
   setIsPlaying(true);
+
   const questionCnt = questionList.length;
   let SelQN: string = '01';
 
   PauseArt({setSubscreen});
 
-  do {
-    SelQN = (Math.floor(Math.random() * questionCnt) + 1).toString();
-  } while (SelQN === currentQuestionNo);
+  // do {
+  //   SelQN = (Math.floor(Math.random() * questionCnt) + 1).toString();
+  // } while (SelQN === currentQuestionNo);
+
+  let questionNumberInt = (parseInt(currentQuestionNo) + 1) % (questionCnt - 1);
+
+  if (questionNumberInt.toString().length === 1)
+    SelQN = '0' + questionNumberInt.toString();
+  else SelQN = questionNumberInt.toString();
 
   setCurrentQuestionNo(SelQN);
   InsertTagList(questionList[parseInt(SelQN) - 1].tag, {

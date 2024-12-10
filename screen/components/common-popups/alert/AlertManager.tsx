@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, {useRef} from 'react';
 import {
   Modal,
   View,
@@ -7,10 +7,10 @@ import {
   StyleSheet,
   TextInput,
 } from 'react-native';
-import { useAlert } from './AlertProvider';
+import {useAlert} from './AlertProvider';
 
 export const AlertManager = () => {
-  const { alert, hideAlert } = useAlert();
+  const {alert, hideAlert} = useAlert();
   const hideInputRef = useRef<TextInput | null>(null);
 
   return (
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 8,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 15,
     elevation: 5,

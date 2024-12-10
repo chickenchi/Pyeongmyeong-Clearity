@@ -12,7 +12,7 @@ import Tab from '@main/footer/Tab';
 import MainHeader from '@main/header/MainHeader';
 import {useAlert} from '@components/common-popups/alert/AlertProvider';
 import {getData} from '@utils/DataSetting';
-import {ProfilePic, Setting} from '@assets/svgs/ProfileSvg';
+import {ProfilePic, Setting} from '@assets/svgs/ProfileSVG';
 
 const Profile = () => {
   const [corrected, updateCorrect] = useState<any>(null);
