@@ -1,0 +1,16 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "baseUrl": "@screen/",
+    "paths": {
+      "@account/*": ["account/*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@main/*": ["main/*"],
+      "@quiz/*": ["quiz/*"],
+      "@utils/*": ["utils/*"],
+      "@word/*": ["word/*"],
+      "@atoms/*": ["atoms/*"]
+    }
+  }
+}
