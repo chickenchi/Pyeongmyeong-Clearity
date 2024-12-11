@@ -113,6 +113,7 @@ export const QuizPage = () => {
           <Pause time={formatTime(time)} />
         )}
       </View>
+
       {isListVisible && (
         <View style={styles.List}>
           <QuizList />
@@ -150,10 +151,11 @@ const styles = StyleSheet.create({
   },
   List: {
     position: 'absolute',
-    width: '20.4%',
-    height: '150%',
+    height: '95%',
+    width: 65,
 
     right: 0,
+    bottom: 0,
   },
   explanationContainer: {
     flex: 1,

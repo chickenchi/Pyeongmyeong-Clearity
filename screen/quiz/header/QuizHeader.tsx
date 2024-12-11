@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   List: {
     position: 'absolute',
-    right: '6.7%',
+    right: 20,
   },
 });
 

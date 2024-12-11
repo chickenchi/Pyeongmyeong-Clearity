@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   alert: {
     backgroundColor: 'rgb(250, 250, 250)',
-    minWidth: 240,
+    minWidth: 340,
     padding: 20,
     borderRadius: 8,
     shadowColor: '#000',
@@ -84,12 +84,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    fontSize: 20,
-    marginBottom: 20,
+    fontSize: 25,
+    marginBottom: 30,
     textAlign: 'center',
   },
   description: {
-    fontSize: 17,
+    fontSize: 18,
     marginBottom: 30,
     textAlign: 'center',
   },
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    fontSize: 14,
+    fontSize: 16,
   },
   hideInput: {
     position: 'absolute',

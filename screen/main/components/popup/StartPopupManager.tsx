@@ -44,6 +44,22 @@ export const StartPopupManager = () => {
           showStartPopup('spellingForm');
         },
       },
+      {
+        text: '문제 암호',
+        onPress: () => {
+          hideStartPopup();
+          setQuizType('examCode');
+          navigation.navigate('quiz');
+        },
+      },
+      {
+        text: '수능 기출',
+        onPress: () => {
+          hideStartPopup();
+          setQuizType('CSAT');
+          navigation.navigate('quiz');
+        },
+      },
     ],
     wordForm: [
       {
