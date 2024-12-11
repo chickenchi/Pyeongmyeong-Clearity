@@ -23,6 +23,22 @@ export interface question {
   Description?: string;
 }
 
+export const wordTag: string[] = [
+  "어휘", "속담"
+]
+
+export const grammarTag: string[] = [
+  "음운 변동", "맞춤법"
+]
+
+export const literatureTag: string[] =[
+  "문학", "수사법"
+]
+
+export const csatTag: string[] = [
+  "수능"
+]
+
 // 추후에 DB로 처리돼서 Deprecate될 예정(Next.js나 Nuxt.js로 진행될 듯)
 export const questionList: question[] = [
   {
@@ -77,7 +93,7 @@ export const questionList: question[] = [
 문장을 해석하실 때는 상황 맥락과 문장의 내용을 보고 다른 의미가 있지 않을까 생각해 보았으면 합니다.`,
     Hint: '심심하다와 사과의 연관성을 찾아보세요.',
     Image: 'none',
-    tag: ['일반', '문장 해석', '어휘'],
+    tag: ['일반', '어휘'],
   },
   {
     questionNo: '04',
@@ -123,7 +139,7 @@ export const questionList: question[] = [
     Hint: `'-던지'인지 '-든지'인지는 문장을 파악한 다음에 맞는지 판단해 보시기 바랍니다.
 관형어의 경우, 뒷말과 띄어 써야 합니다.`,
     Image: 'none',
-    tag: ['일반', '맞춤법', '관형어', '문장 해석'],
+    tag: ['일반', '문법', '맞춤법', '관형어', '문장 해석'],
     describe:
       '이게 남의것이든지 내것이던지모르겠지만 모른척 할 거 라고 말했다.',
   },
@@ -141,7 +157,7 @@ export const questionList: question[] = [
 ④ '쳐먹다'는 '처먹다'의 잘못입니다. 접두사 '처-'에 '먹다'가 결합된 구성이 바람직합니다.`,
     Hint: '단어 중 사전에 등재되지 않은 접사가 있습니다.',
     Image: 'none',
-    tag: ['일반', '맞춤법', '접사'],
+    tag: ['일반', '어휘', '맞춤법', '접사'],
   },
   {
     questionNo: '08',
@@ -153,7 +169,7 @@ export const questionList: question[] = [
     Image: 'none',
     Description:
       '우리 마을에는 새콤달콤한 자두가 탐스럽게 익어 갑니다. 그리고 살구나무에는 살구가 주렁주렁 달립니다. 과수원에는 달콤한 복숭아가 열립니다. 여름이 되면 이처럼 우리 마을에는 탐스러운 과일이 열립니다.',
-    tag: ['초등', '문장'],
+    tag: ['초등', '문법'],
     describe: `'사람은 누구나 늙는다'가 중심 문장이면 '사람'으로 적습니다.`,
   },
   {
@@ -171,7 +187,7 @@ export const questionList: question[] = [
 둘을 문장상에 두고 싶다면 실력이 높고 외모가 출중하다와 같이 쓰셔야 합니다.`,
     Hint: '명사와 동사가 서로 맞지 않는 문장이 있습니다.',
     Image: 'none',
-    tag: ['중등', '문장'],
+    tag: ['중등', '문법'],
   },
   {
     questionNo: '10',
@@ -214,7 +230,7 @@ export const questionList: question[] = [
 다만, 물고기 종류를 의미하는 대구는 [대구]로 발음합니다.`,
     Hint: '힌트가 없습니다.',
     Image: 'none',
-    tag: ['일반', '발음'],
+    tag: ['일반', '음운 변동'],
   },
   {
     questionNo: '13',
@@ -225,6 +241,6 @@ export const questionList: question[] = [
 0.1, 0.5와 같은 소수가 [소수]로 발음됩니다.`,
     Hint: '힌트가 없습니다.',
     Image: 'none',
-    tag: ['일반', '발음'],
+    tag: ['일반', '음운 변동'],
   },
 ];

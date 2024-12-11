@@ -29,19 +29,19 @@ export const StartPopupManager = () => {
   const hideInputRef = useRef<TextInput | null>(null);
 
   const buttonConfig = {
-    wordOrSpelling: [
+    category: [
       {
-        text: '단어',
+        text: '어휘',
         onPress: () => {
           hideStartPopup();
           showStartPopup('wordForm');
         },
       },
       {
-        text: '맞춤법',
+        text: '문법',
         onPress: () => {
           hideStartPopup();
-          showStartPopup('spellingForm');
+          showStartPopup('grammarForm');
         },
       },
       {
@@ -75,12 +75,12 @@ export const StartPopupManager = () => {
         },
       },
     ],
-    spellingForm: [
+    grammarForm: [
       {
         text: '연습 형식',
         onPress: () => {
           hideStartPopup();
-          setQuizType('spelling');
+          setQuizType('grammar');
           navigation.navigate('quiz');
         },
       },

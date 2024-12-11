@@ -7,9 +7,13 @@ import {
   currentQuestionNoState,
   currentQuestionState,
   playingState,
+  quizOrderState,
+  quizPriorityState,
+  quizTypeState,
   readOnlyState,
   selectedQuestionState,
   showTagState,
+  typeOfQuestionListState,
 } from '@atoms/quiz/QuizAtom';
 
 /* Tools */
@@ -41,6 +45,12 @@ const Quiz = () => {
     selectedQuestionState,
   );
   const [requestedShowTag, requestingShowTag] = useRecoilState(showTagState);
+  const [quizType] = useRecoilState(quizTypeState);
+  const [quizOrder] = useRecoilState(quizOrderState);
+  const [typeOfQuestionList, setTypeOfQuestionList] = useRecoilState(
+    typeOfQuestionListState,
+  );
+  const [quizPriority, setQuizPriority] = useRecoilState(quizPriorityState);
 
   const [tagList, setTagList] = useState<JSX.Element[]>([]);
   const [currentOpacity, setCurrentOpacity] = useState(80);
@@ -67,6 +77,12 @@ const Quiz = () => {
     setRequest,
     no,
     setType,
+    quizType,
+    quizOrder,
+    setTypeOfQuestionList,
+    typeOfQuestionList,
+    quizPriority,
+    setQuizPriority,
   };
 
   const insertTagListProps = {

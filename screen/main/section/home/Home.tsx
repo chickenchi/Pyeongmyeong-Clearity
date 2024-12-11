@@ -11,10 +11,7 @@ import {
 
 import Tab from '@main/footer/Tab';
 import {StartPopupManager} from '@main/components/popup/StartPopupManager';
-import {
-  StartPopupProvider,
-  useStartPopup,
-} from '@main/components/popup/StartPopupProvider';
+import {useStartPopup} from '@main/components/popup/StartPopupProvider';
 
 interface HomePageProps {
   navigation: NativeStackNavigationProp<any, 'default'>;
@@ -23,10 +20,6 @@ interface HomePageProps {
 const Home = ({navigation}: HomePageProps) => {
   const Test = () => {
     navigation.navigate('login');
-  };
-
-  const QuizPage = () => {
-    navigation.navigate('quiz');
   };
 
   const {showStartPopup} = useStartPopup();
@@ -43,7 +36,7 @@ const Home = ({navigation}: HomePageProps) => {
 
       <TouchableOpacity
         style={[styles.button, styles.startBtn]}
-        onPress={() => showStartPopup('wordOrSpelling')}>
+        onPress={() => showStartPopup('category')}>
         <Text style={[styles.buttonText, styles.startBtnText]}>시작하기</Text>
       </TouchableOpacity>
       <TouchableOpacity

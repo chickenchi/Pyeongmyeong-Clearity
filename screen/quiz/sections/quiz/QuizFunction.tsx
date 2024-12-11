@@ -1,7 +1,10 @@
 import {MutableRefObject} from 'react';
 import {Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {question} from '@quiz/data/QuestionList';
+import {csatTag, grammarTag, question, wordTag} from '@quiz/data/QuestionList';
 import {Draw, Write} from '@assets/svgs/QuizSvg';
+import {RandomNumberByMaxLength} from '@utils/RandomNumberByMaxLength';
+import {hasCommonElement} from '@utils/HasCommonElement';
+import {findKeyByValue} from '@utils/FindKeyByValue';
 
 interface AvailableBoard {
   setSubscreen: (value: string) => void;
@@ -42,6 +45,12 @@ interface SelectQuestion {
   setRequest: (value: string) => void;
   no: MutableRefObject<number>;
   setType: (value: string) => void;
+  quizType: string;
+  quizOrder: string;
+  setTypeOfQuestionList: (value: question[]) => void;
+  typeOfQuestionList: question[];
+  quizPriority: Map<string, number>;
+  setQuizPriority: (quizPriority: Map<string, number>) => void;
 }
 
 export const SelectQuestion = ({
@@ -56,6 +65,12 @@ export const SelectQuestion = ({
   setRequest,
   no,
   setType,
+  quizType,
+  quizOrder,
+  setTypeOfQuestionList,
+  typeOfQuestionList,
+  quizPriority,
+  setQuizPriority,
 }: SelectQuestion) => {
   if (readOnly) {
     InsertTagList(questionList[parseInt(currentQuestionNo) - 1].tag, {
@@ -68,30 +83,75 @@ export const SelectQuestion = ({
   }
 
   setIsPlaying(true);
-
-  const questionCnt = questionList.length;
-  let SelQN: string = '01';
-
   PauseArt({setSubscreen});
 
-  // do {
-  //   SelQN = (Math.floor(Math.random() * questionCnt) + 1).toString();
-  // } while (SelQN === currentQuestionNo);
+  /** typeOfQuestionList */
+  var toql: question[] = [];
+  /** questionPriority */
+  var qp: Map<string, number> = new Map();
 
-  let questionNumberInt = (parseInt(currentQuestionNo) + 1) % (questionCnt - 1);
+  // backend에서 데이터 불러오는 과정 대체
+  if (!typeOfQuestionList.length) {
+    const questionCnt = questionList.length;
 
-  if (questionNumberInt.toString().length === 1)
-    SelQN = '0' + questionNumberInt.toString();
-  else SelQN = questionNumberInt.toString();
+    const tagMap = {
+      word: wordTag,
+      grammar: grammarTag,
+      examCode: null,
+      CSAT: csatTag,
+    };
+
+    let order = 0;
+
+    for (let i = 0; i < questionCnt; i++) {
+      const question = questionList[i];
+      const relatedTags = tagMap[quizType];
+
+      if (!relatedTags) continue;
+
+      if (hasCommonElement(question.tag, relatedTags)) {
+        toql.push(question);
+        qp.set(question.questionNo, order);
+
+        order += 1;
+      }
+    }
+
+    setTypeOfQuestionList(toql);
+    setQuizPriority(qp);
+  } else {
+    toql = typeOfQuestionList;
+    qp = quizPriority;
+  }
+
+  /** SelectedQuestionNumber */
+  let SelQN: string = '01';
+
+  let toqlCnt = toql.length;
+
+  if (quizOrder === 'random') {
+    do {
+      let randomSelQN = RandomNumberByMaxLength(toqlCnt) - 1;
+      SelQN = toql[randomSelQN].questionNo;
+    } while (SelQN === currentQuestionNo);
+  } else {
+    if (!currentQuestionNo) SelQN = toql[0].questionNo;
+    else {
+      let order = (qp.get(currentQuestionNo) + 1) % toqlCnt;
+      SelQN = findKeyByValue(order, qp);
+    }
+  }
 
   setCurrentQuestionNo(SelQN);
-  InsertTagList(questionList[parseInt(SelQN) - 1].tag, {
+
+  let SelQNInt = parseInt(SelQN) - 1;
+  InsertTagList(questionList[SelQNInt].tag, {
     setTagList,
     setRequest,
     no,
     setType,
   });
-  setCurrentQuestion(questionList[parseInt(SelQN) - 1]);
+  setCurrentQuestion(questionList[SelQNInt]);
 };
 
 interface InsertTagList {
@@ -137,7 +197,6 @@ export const ShowAlert = (
   setRequest(script + '; ' + no.current);
   setType(type);
   no.current += 1;
-  console.log(no);
 };
 
 interface PauseArt {
