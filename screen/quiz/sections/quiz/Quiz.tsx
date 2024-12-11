@@ -101,11 +101,11 @@ const Quiz = () => {
       return;
     }
 
-    SelectQuestion(selectQuestionProps);
-
     if (reqSelQ) {
       // readOnly의 경우 적용 안 됨
       requestingSelectingQuestion(!reqSelQ);
+    } else {
+      SelectQuestion(selectQuestionProps);
     }
   }, [reqSelQ, readOnly, requestedShowTag]);
 

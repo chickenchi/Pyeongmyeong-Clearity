@@ -124,6 +124,8 @@ export const SelectQuestion = ({
     qp = quizPriority;
   }
 
+  console.log(qp);
+
   /** SelectedQuestionNumber */
   let SelQN: string = '01';
 
