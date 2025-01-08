@@ -1,15 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-  ScrollView,
-  TextInput,
-} from 'react-native';
+import {Text, View, SafeAreaView, StyleSheet} from 'react-native';
 import {questionList} from '@quiz/data/QuestionList';
 
 import {useRecoilState} from 'recoil';
@@ -157,7 +147,7 @@ const styles = StyleSheet.create({
     width: '90%',
     flexDirection: 'row',
     marginLeft: 15,
-    marginBottom: 30,
+    marginBottom: 40,
   },
   QuestionContainer: {
     width: '90%',
@@ -171,15 +161,15 @@ const styles = StyleSheet.create({
     marginRight: 20,
 
     fontFamily: 'Cafe24Oneprettynight',
-    fontSize: 37,
+    fontSize: 40,
   },
   question: {
-    width: '80%',
+    width: 300,
     marginRight: 15,
 
     fontFamily: 'Cafe24Oneprettynight',
     fontWeight: 'normal',
-    fontSize: 21,
+    fontSize: 23,
   },
 });
 

@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
   List: {
     position: 'absolute',
-    width: '20.4%',
+    width: 65,
     height: '150%',
 
     right: 0,

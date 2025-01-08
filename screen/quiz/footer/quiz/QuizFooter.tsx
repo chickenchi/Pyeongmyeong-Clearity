@@ -114,47 +114,16 @@ const QuizFooter = () => {
 
           <View style={styles.answeringContainer}>
             <TouchableOpacity
-              style={styles.answerBtn}
+              style={styles.giveupBtn}
               onPress={() => {
-                if (!selectedNumber && !inputText && !selectOX) {
-                  showAlert({
-                    title: '평명',
-                    description: `정답을 입력하거나\n고르지 않으셨습니다.`,
-                    type: 'okay',
-                    onConfirm: () => {},
-                  });
-                } else {
-                  showAlert({
-                    title: '평명',
-                    description: `정답을 제출하시겠습니까?`,
-                    type: 'select',
-                    onConfirm: () => {
-                      var isCorr: boolean = false;
-
-                      if (currentQuestion.type === '다지선다') {
-                        isCorr = selectedNumber === currentQuestion.Corr;
-                      } else if (currentQuestion.type === '입력') {
-                        isCorr = inputText === currentQuestion.Corr;
-                      } else {
-                        isCorr = selectOX === currentQuestion.Corr;
-                      }
-
-                      ToggleResult(
-                        isCorr,
-                        currentQuestion.type === '다지선다'
-                          ? selectedNumber
-                          : currentQuestion.type === '입력'
-                          ? inputText
-                          : selectOX,
-                        currentQuestion.Corr,
-                        currentQuestion.type,
-                        toggleResultVariable,
-                      );
-                    },
-                  });
-                }
+                showAlert({
+                  title: '평명',
+                  description: `포기하지 마세요!`,
+                  type: 'okay',
+                  onConfirm: () => {},
+                });
               }}>
-              <Text style={styles.answerDesc}>정답 확인</Text>
+              <Text style={styles.answerDesc}>포기하기</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -195,18 +164,52 @@ const QuizFooter = () => {
           onPress={() => {
             if (!showedAnswer) {
               answerShowing(!showedAnswer);
-            } else {
+              return;
+            }
+            if (!selectedNumber && !inputText && !selectOX) {
               showAlert({
                 title: '평명',
-                description: `포기하지 마세요!`,
+                description: `정답을 입력하거나\n고르지 않으셨습니다.`,
                 type: 'okay',
                 onConfirm: () => {},
               });
+            } else {
+              showAlert({
+                title: '평명',
+                description: `정답을 제출하시겠습니까?`,
+                type: 'select',
+                onConfirm: () => {
+                  var isCorr: boolean = false;
+
+                  if (currentQuestion.type === '다지선다') {
+                    isCorr = selectedNumber === currentQuestion.Corr;
+                  } else if (currentQuestion.type === '입력') {
+                    isCorr = inputText === currentQuestion.Corr;
+                  } else {
+                    isCorr = selectOX === currentQuestion.Corr;
+                  }
+
+                  ToggleResult(
+                    isCorr,
+                    currentQuestion.type === '다지선다'
+                      ? selectedNumber
+                      : currentQuestion.type === '입력'
+                      ? inputText
+                      : selectOX,
+                    currentQuestion.Corr,
+                    currentQuestion.type,
+                    toggleResultVariable,
+                  );
+                },
+              });
             }
           }}
-          style={styles.forgiveBtn}>
-          <Text style={styles.btnDesc}>
-            {!showedAnswer ? '정답 입력' : '문제 포기'}
+          style={[
+            styles.forgiveBtn,
+            showedAnswer && {backgroundColor: '#E04E92'},
+          ]}>
+          <Text style={[styles.btnDesc, showedAnswer && {color: 'white'}]}>
+            {!showedAnswer ? '정답 입력' : '정답 확인'}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -301,7 +304,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Cafe24Oneprettynight',
   },
   forgiveBtn: {
-    backgroundColor: 'none',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
 
     justifyContent: 'center',
     alignItems: 'center',
@@ -330,7 +333,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
 
-    height: 230,
+    height: 280,
     width: '100%',
 
     borderColor: '#888888',
@@ -338,7 +341,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
 
-    bottom: 130,
+    bottom: 140,
   },
   titleContainer: {
     position: 'absolute',
@@ -347,20 +350,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
     width: '100%',
-    height: '35%',
+    height: '30%',
 
     top: 0,
   },
   answerTitle: {
     position: 'absolute',
 
-    left: 10,
+    left: 40,
 
     color: 'black',
     fontSize: 26,
     fontFamily: 'Cafe24Oneprettynight',
-
-    margin: 30,
   },
   exitAnswer: {
     position: 'absolute',
@@ -393,7 +394,7 @@ const styles = StyleSheet.create({
   },
   describe: {
     marginRight: 30,
-    marginBottom: 10,
+    marginBottom: 20,
 
     fontSize: 14,
   },
@@ -438,17 +439,17 @@ const styles = StyleSheet.create({
 
     bottom: 20,
   },
-  answerBtn: {
+  giveupBtn: {
     position: 'absolute',
     backgroundColor: 'none',
 
     justifyContent: 'center',
     alignItems: 'center',
 
-    width: '30%',
-    height: '100%',
+    width: 120,
+    height: 40,
     marginRight: 3,
-    right: 27,
+    right: 18,
 
     borderColor: '#888888',
     borderRadius: 10,

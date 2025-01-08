@@ -10,7 +10,8 @@
       "@quiz/*": ["./screen/quiz/*"],
       "@utils/*": ["./screen/utils/*"],
       "@word/*": ["./screen/word/*"],
-      "@atoms/*": ["./screen/atoms/*"]
+      "@atoms/*": ["./screen/atoms/*"],
+      "@category/*": ["./screen/category/*"],
     }
   }
 }

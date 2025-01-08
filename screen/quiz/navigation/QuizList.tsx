@@ -7,29 +7,26 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {List} from '@assets/svgs/HeaderSvg';
-import {Setting, Shopping, Help} from '@assets/svgs/ListSvg';
+import {Bookmark, Category, Help} from '@assets/svgs/ListSvg';
 import {useRecoilState} from 'recoil';
 import {showListState} from '@atoms/quiz/QuizAtom';
-import SelectPopup from '@main/components/popups/StartSelectPopup';
-
+import {useAlert} from '@components/common-popups/alert/AlertProvider';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 /* 위치 잘못 잡힘 */
 
+export type RootStackParam = {
+  category: undefined;
+};
+
 const QuizList = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParam>>();
+
   const [isListVisible, setIsListVisible] = useRecoilState(showListState);
-  const [request, req] = useState<string>('');
-  const [type, editType] = useState<string>('');
-
-  const no = useRef(0);
-
-  const showAlert = (script: string, type: string) => {
-    req(script + '; ' + no.current);
-    editType(type);
-    no.current += 1;
-  };
+  const {showAlert} = useAlert();
 
   return (
     <SafeAreaView style={styles.Header}>
-      <SelectPopup request={request} type={type} />
       <TouchableOpacity
         onPress={() => setIsListVisible(!isListVisible)}
         style={styles.List}>
@@ -37,19 +34,43 @@ const QuizList = () => {
       </TouchableOpacity>
       <View style={styles.SvgContainer}>
         <TouchableOpacity
-          onPress={() => showAlert('현재 기능은 작업 중에 있습니다.', 'Okay')}>
-          <Setting />
+          onPress={() => {
+            showAlert({
+              title: '평명',
+              description: `현재 기능은 작업 중에 있습니다.`,
+              type: 'okay',
+              onConfirm: () => {},
+            });
+          }}>
+          <Bookmark />
         </TouchableOpacity>
       </View>
       <View style={styles.SvgContainer}>
         <TouchableOpacity
-          onPress={() => showAlert('현재 기능은 작업 중에 있습니다.', 'Okay')}>
-          <Shopping />
+          onPress={() => {
+            showAlert({
+              title: '평명',
+              description: `풀던 문제의 정보를 잃을 수 있습니다!
+계속하시겠습니까?`,
+              type: 'select',
+              onConfirm: () => {
+                navigation.navigate('category');
+              },
+            });
+          }}>
+          <Category />
         </TouchableOpacity>
       </View>
       <View style={styles.SvgContainer}>
         <TouchableOpacity
-          onPress={() => showAlert('현재 기능은 작업 중에 있습니다.', 'Okay')}>
+          onPress={() => {
+            showAlert({
+              title: '평명',
+              description: `현재 기능은 작업 중에 있습니다.`,
+              type: 'okay',
+              onConfirm: () => {},
+            });
+          }}>
           <Help />
         </TouchableOpacity>
       </View>
@@ -64,11 +85,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   List: {
-    marginTop: 100,
+    marginTop: 69,
     marginBottom: 10,
   },
   SvgContainer: {
-    marginTop: 20,
+    marginTop: 40,
   },
 });
 

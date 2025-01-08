@@ -9,8 +9,6 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import Logo from './Logo/Logo';
-
 export type RootStackParam = {
   home: undefined;
 };

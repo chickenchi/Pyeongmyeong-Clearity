@@ -19,6 +19,7 @@ module.exports = function (api) {
             '@utils': './screen/utils',
             '@word': './screen/word',
             '@atoms': './screen/atoms',
+            '@category': './screen/category',
           },
         },
       ],

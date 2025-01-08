@@ -13,8 +13,9 @@ import Setting from '@main/section/setting/Setting';
 import {QuizPage} from '@quiz/QuizPage';
 import {AlertProvider} from '@components/common-popups/alert/AlertProvider';
 import {AlertManager} from '@components/common-popups/alert/AlertManager';
-
 import {useFonts} from 'expo-font';
+import CategoryPage from '@category/CategoryPage';
+import SelectCategory from '@category/section/SelectCategory';
 
 const Stack = createNativeStackNavigator<CommonType.RootStackPageList>();
 
@@ -29,7 +30,7 @@ const App: React.FC = () => {
         <AlertProvider>
           <AlertManager />
           <Stack.Navigator
-            initialRouteName="profile"
+            initialRouteName="category"
             screenOptions={{headerShown: false}}>
             <Stack.Screen name="intro" component={Intro} />
             <Stack.Screen name="login" component={LoginPage} />
@@ -39,6 +40,7 @@ const App: React.FC = () => {
             <Stack.Screen name="ranking" component={Ranking} />
             <Stack.Screen name="setting" component={Setting} />
             <Stack.Screen name="quiz" component={QuizPage} />
+            <Stack.Screen name="category" component={CategoryPage} />
           </Stack.Navigator>
         </AlertProvider>
       </RecoilRoot>

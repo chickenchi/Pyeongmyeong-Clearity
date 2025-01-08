@@ -1,4 +1,4 @@
-export declare module CommonType {
+export declare namespace CommonType {
     export type RootStackPageList = {
         login: undefined;
         intro: undefined;
@@ -10,5 +10,6 @@ export declare module CommonType {
         tab: undefined;
         crossword: undefined;
         quiz: undefined;
+        category: undefined;
     };
 }

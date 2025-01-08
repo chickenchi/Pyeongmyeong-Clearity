@@ -6,7 +6,6 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {Svg, Path, Rect} from 'react-native-svg';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {List, Logo, Pause, Play} from '@assets/svgs/HeaderSvg';
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
   },
   List: {
     position: 'absolute',
-    right: '6.7%',
+    right: 20,
   },
 });
 

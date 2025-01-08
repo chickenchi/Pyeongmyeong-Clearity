@@ -1,7 +1,7 @@
 // atoms.ts
 import {atom} from 'recoil';
-import {Question} from '../../Quiz/Data/questionList';
-import {ResultType} from '../../Quiz/QuizPage';
+import {question} from '@quiz/data/QuestionList';
+import {ResultType} from '@quiz/QuizPage';
 
 export const playingState = atom({
   key: 'playingState',
@@ -43,7 +43,7 @@ export const showedExplanationState = atom({
   default: false,
 });
 
-const initialQuestion: Question = {
+const initialQuestion: question = {
   questionNo: '',
   question: '',
   type: '다지선다',
@@ -68,7 +68,7 @@ const initialQuestion: Question = {
   Description: '',
 };
 
-export const currentQuestionState = atom<Question>({
+export const currentQuestionState = atom<question>({
   key: 'currentQuestionState',
   default: initialQuestion,
 });
