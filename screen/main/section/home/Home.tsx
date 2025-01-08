@@ -1,5 +1,5 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import React, {useState} from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 
 import Tab from '@main/footer/Tab';
+import {StartPopupManager} from '@main/components/popup/StartPopupManager';
+import {useStartPopup} from '@main/components/popup/StartPopupProvider';
 
 interface HomePageProps {
   navigation: NativeStackNavigationProp<any, 'default'>;
@@ -20,12 +22,11 @@ const Home = ({navigation}: HomePageProps) => {
     navigation.navigate('login');
   };
 
-  const QuizPage = () => {
-    navigation.navigate('quiz');
-  };
+  const {showStartPopup} = useStartPopup();
 
   return (
     <SafeAreaView style={styles.BG}>
+      <StartPopupManager />
       <View style={styles.titleView}>
         <Image
           source={require('@assets/images/logo/Logo.png')}
@@ -35,13 +36,13 @@ const Home = ({navigation}: HomePageProps) => {
 
       <TouchableOpacity
         style={[styles.button, styles.startBtn]}
-        onPress={QuizPage}>
+        onPress={() => showStartPopup('category')}>
         <Text style={[styles.buttonText, styles.startBtnText]}>시작하기</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.button, styles.battleBtn]}
         onPress={Test}>
-        <Text style={[styles.buttonText, styles.battleBtnText]}>계정 변경</Text>
+        <Text style={[styles.buttonText, styles.battleBtnText]}>정보 변경</Text>
       </TouchableOpacity>
 
       <View style={styles.tab}>

@@ -7,9 +7,13 @@ import {
   currentQuestionNoState,
   currentQuestionState,
   playingState,
+  quizOrderState,
+  quizPriorityState,
+  quizTypeState,
   readOnlyState,
   selectedQuestionState,
   showTagState,
+  typeOfQuestionListState,
 } from '@atoms/quiz/QuizAtom';
 
 /* Tools */
@@ -41,12 +45,18 @@ const Quiz = () => {
     selectedQuestionState,
   );
   const [requestedShowTag, requestingShowTag] = useRecoilState(showTagState);
+  const [quizType] = useRecoilState(quizTypeState);
+  const [quizOrder] = useRecoilState(quizOrderState);
+  const [typeOfQuestionList, setTypeOfQuestionList] = useRecoilState(
+    typeOfQuestionListState,
+  );
+  const [quizPriority, setQuizPriority] = useRecoilState(quizPriorityState);
 
   const [tagList, setTagList] = useState<JSX.Element[]>([]);
   const [currentOpacity, setCurrentOpacity] = useState(80);
 
-  const [request, setRequest] = useState('');
-  const [type, setType] = useState('');
+  const [, setRequest] = useState('');
+  const [, setType] = useState('');
 
   const [showedTag, setShowedTag] = useState<boolean>(false);
 
@@ -55,46 +65,47 @@ const Quiz = () => {
 
   let no = useRef(0);
 
+  const selectQuestionProps = {
+    readOnly,
+    questionList,
+    currentQuestionNo,
+    setIsPlaying,
+    setCurrentQuestionNo,
+    setCurrentQuestion,
+    setTagList,
+    setSubscreen,
+    setRequest,
+    no,
+    setType,
+    quizType,
+    quizOrder,
+    setTypeOfQuestionList,
+    typeOfQuestionList,
+    quizPriority,
+    setQuizPriority,
+  };
+
+  const insertTagListProps = {
+    setTagList,
+    setRequest,
+    no,
+    setType,
+  };
+
   useEffect(() => {
-    if (reqSelQ) {
-      SelectQuestion({
-        readOnly,
-        questionList,
-        currentQuestionNo,
-        setIsPlaying,
-        setCurrentQuestionNo,
-        setCurrentQuestion,
-        setTagList,
-        setSubscreen,
-        setRequest,
-        no,
-        setType,
-      });
-      requestingSelectingQuestion(!reqSelQ);
-    }
-    if (readOnly) {
-      SelectQuestion({
-        readOnly,
-        questionList,
-        currentQuestionNo,
-        setIsPlaying,
-        setCurrentQuestionNo,
-        setCurrentQuestion,
-        setTagList,
-        setSubscreen,
-        setRequest,
-        no,
-        setType,
-      });
-    }
+    let curQuestionNo = parseInt(currentQuestionNo) - 1;
+
     if (requestedShowTag) {
-      InsertTagList(questionList[parseInt(currentQuestionNo) - 1].tag, {
-        setTagList,
-        setRequest,
-        no,
-        setType,
-      });
+      InsertTagList(questionList[curQuestionNo].tag, insertTagListProps);
       requestingShowTag(false);
+      return;
+    }
+
+    if (reqSelQ) {
+      // readOnly의 경우 적용 안 됨
+      requestingSelectingQuestion(!reqSelQ);
+    } else {
+      SelectQuestion(selectQuestionProps);
     }
   }, [reqSelQ, readOnly, requestedShowTag]);
 
@@ -119,7 +130,7 @@ const Quiz = () => {
         <MultipleChoice currentQuestion={currentQuestion} readOnly={readOnly} />
       )}
 
-      {(currentQuestion.Image !== 'none' || currentQuestion.Description) && (
+      {(currentQuestion?.Image !== 'none' || currentQuestion?.Description) && (
         <ShowingImage setSubscreen={setSubscreen} subscreen={subscreen} />
       )}
       {subscreen === 'drawingBoard' && <DrawingBoard />}

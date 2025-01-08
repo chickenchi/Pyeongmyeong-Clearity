@@ -1,11 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
 import {List} from '@assets/svgs/HeaderSvg';
 import {Bookmark, Category, Help} from '@assets/svgs/ListSvg';
 import {useRecoilState} from 'recoil';

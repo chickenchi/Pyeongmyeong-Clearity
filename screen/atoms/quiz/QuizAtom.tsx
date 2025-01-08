@@ -75,7 +75,7 @@ export const currentQuestionState = atom<question>({
 
 export const currentQuestionNoState = atom<string>({
   key: 'currentQuestionNoState',
-  default: '0',
+  default: null,
 });
 
 export const selectedQuestionState = atom({
@@ -83,7 +83,30 @@ export const selectedQuestionState = atom({
   default: true,
 });
 
+// --
 export const readOnlyState = atom({
   key: 'readOnlyState',
   default: false,
+});
+
+// --
+
+export const typeOfQuestionListState = atom<question[]>({
+  key: 'typeOfQuestionListState',
+  default: [],
+});
+
+export const quizTypeState = atom<string>({
+  key: 'quizTypeState',
+  default: '',
+});
+
+export const quizOrderState = atom<string>({
+  key: 'quizOrderState',
+  default: 'random',
+});
+
+export const quizPriorityState = atom<Map<string, number>>({
+  key: 'quizPriorityState',
+  default: null,
 });

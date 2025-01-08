@@ -6,9 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-// import {
-//   ShowImage,
-// } from '@assets/svgs/QuizSvg';
+import {ShowImage} from '@assets/svgs/QuizSvg';
 
 interface ShowingImage {
   setSubscreen: (value: string) => void;
@@ -24,7 +22,7 @@ export const ShowingImage: React.FC<ShowingImage> = ({
       <TouchableOpacity
         onPress={() => setSubscreen(subscreen === 'image' ? '' : 'image')}
         style={styles.ImageBtn}>
-        {/* <ShowImage /> */}
+        <ShowImage />
       </TouchableOpacity>
     </View>
   );

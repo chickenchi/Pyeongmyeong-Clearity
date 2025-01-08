@@ -1,4 +1,4 @@
-import {Question} from '@quiz/data/questionList';
+import {question} from '@quiz/data/QuestionList';
 import {
   ScrollView,
   View,
@@ -15,7 +15,7 @@ interface ImageContainer {
   setCurrentOpacity: (value: number) => void;
   currentOpacity: number;
   setSubscreen: (value: string) => void;
-  currentQuestion: Question;
+  currentQuestion: question;
   subscreen: string;
 }
 
@@ -42,7 +42,9 @@ const ImageContainer: React.FC<ImageContainer> = ({
           <Exit />
         </TouchableOpacity>
       </View>
-      <ScrollView style={styles.resContentCtn}>
+      <ScrollView
+        contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}}
+        style={styles.resContentCtn}>
         {currentQuestion.Image !== 'none' && (
           <Image
             source={currentQuestion.Image}
@@ -101,8 +103,6 @@ const styles = StyleSheet.create({
   },
   resContentCtn: {
     width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   img: {
     width: 250,

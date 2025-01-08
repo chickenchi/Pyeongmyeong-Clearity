@@ -1,4 +1,4 @@
-import SVG, {Circle, Path, Rect} from 'react-native-svg';
+import SVG, {Circle, Path} from 'react-native-svg';
 
 export const Setting = () => {
   return (
