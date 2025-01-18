@@ -114,46 +114,53 @@ const styles = StyleSheet.create({
     marginTop: 130,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   profilePic: {
-    marginLeft: 40,
-    marginRight: 20,
+    backgroundColor: 'red',
+
+    justifyContent: 'center',
+
+    height: 150,
+
+    marginLeft: 50,
+  },
+  info: {
+    backgroundColor: 'red',
+    flexDirection: 'column',
+    justifyContent: 'center',
+
+    width: '80%',
+    height: 150,
   },
   call: {
     width: 80,
     height: 25,
+
     borderWidth: 1.5,
     borderColor: '#C1C1C1',
     borderRadius: 10,
+
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 5,
   },
   callText: {
-    position: 'absolute',
     fontSize: 12,
     color: 'black',
-    marginLeft: 25,
-    marginTop: 5,
-  },
-  info: {
-    flexDirection: 'column',
-    width: '100%',
   },
   id: {
     fontSize: 15,
-    marginTop: 5,
-    marginLeft: 0,
     color: '#C1C1C1',
     fontWeight: '500',
   },
   name: {
     fontSize: 30,
-    marginTop: -5,
+    marginBottom: 5,
     fontWeight: '600',
     color: 'black',
   },
   introduce: {
-    marginTop: 5,
     fontSize: 15,
   },
   setting: {

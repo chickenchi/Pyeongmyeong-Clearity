@@ -1,10 +1,5 @@
-import {Back, Save} from '@assets/svgs/CategorySVG';
-import {Logo} from '@assets/svgs/HeaderSvg';
-import {currentCategoryState} from '@atoms/category/CategoryAtom';
-import Hr from '@components/ui/Hr';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useEffect} from 'react';
+import {currentCategoryScreenState} from '@atoms/category/CategoryAtom';
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,25 +9,89 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
+
+import {
+  ageElementState,
+  difficultyElementState,
+  categoryElementState,
+} from '@atoms/common/Atom';
+
 import {useRecoilState} from 'recoil';
 
-export type RootStackParam = {};
-
-const SelectedTypeItem = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParam>>();
-  const [, setCurrentCategory] = useRecoilState(currentCategoryState);
+const AgeTypeItem = () => {
+  const [, setCurrentCategory] = useRecoilState(currentCategoryScreenState);
+  const [age, setAge] = useRecoilState(ageElementState);
+  const ageSet = new Set(age);
 
   return (
-    <View style={styles.typeItemView}>
-      <View style={styles.typeItemBtn}>
-        <Text style={styles.typeItem}>안녕</Text>
-      </View>
+    <View style={styles.typeView}>
+      <Text style={styles.typeTitle}>연령대</Text>
 
-      <TouchableOpacity
-        style={styles.typeAddBtn}
-        onPress={() => setCurrentCategory('select')}>
-        <Text style={styles.typeAdd}>+</Text>
-      </TouchableOpacity>
+      <View style={styles.typeView}>
+        {Array.from(ageSet).map(age => (
+          <View style={styles.typeBtn}>
+            <Text style={styles.typeItem}>{age}</Text>
+          </View>
+        ))}
+
+        <TouchableOpacity
+          style={styles.typeAddBtn}
+          onPress={() => setCurrentCategory('selectAge')}>
+          <Text style={styles.typeAdd}>+</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const DifficultyTypeItem = () => {
+  const [, setCurrentCategory] = useRecoilState(currentCategoryScreenState);
+  const [difficulty, setDifficulty] = useRecoilState(difficultyElementState);
+  const difficultySet = new Set(difficulty);
+
+  return (
+    <View style={styles.typeView}>
+      <Text style={styles.typeTitle}>난이도</Text>
+
+      <View style={styles.typeView}>
+        {Array.from(difficultySet).map(difficulty => (
+          <View style={styles.typeBtn}>
+            <Text style={styles.typeItem}>{difficulty}</Text>
+          </View>
+        ))}
+
+        <TouchableOpacity
+          style={styles.typeAddBtn}
+          onPress={() => setCurrentCategory('selectDifficulty')}>
+          <Text style={styles.typeAdd}>+</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const CategoryTypeItem = () => {
+  const [, setCurrentCategory] = useRecoilState(currentCategoryScreenState);
+  const [category, setCategory] = useRecoilState(categoryElementState);
+  const categorySet = new Set(category);
+
+  return (
+    <View style={styles.typeView}>
+      <Text style={styles.typeTitle}>유형</Text>
+
+      <View style={styles.typeView}>
+        {Array.from(categorySet).map(category => (
+          <View style={styles.typeBtn}>
+            <Text style={styles.typeItem}>{category}</Text>
+          </View>
+        ))}
+
+        <TouchableOpacity
+          style={styles.typeAddBtn}
+          onPress={() => setCurrentCategory('selectCategory')}>
+          <Text style={styles.typeAdd}>+</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -53,7 +112,9 @@ const Category = () => {
         </TouchableOpacity>
       </View>
 
-      {SelectedTypeItem()}
+      {AgeTypeItem()}
+      {DifficultyTypeItem()}
+      {CategoryTypeItem()}
     </SafeAreaView>
   );
 };
@@ -85,7 +146,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     fontSize: 24,
     fontFamily: 'Cafe24Oneprettynight',
-    color: '#C1C1C1',
+    color: '#888888',
   },
   trash: {
     position: 'absolute',
@@ -96,34 +157,41 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
   },
-  typeItemView: {
+  typeTitle: {
+    fontSize: 24,
+    fontFamily: 'Cafe24Oneprettynight',
+    color: '#888888',
+  },
+  typeView: {
     position: 'relative',
 
     alignItems: 'center',
 
     width: 400,
-    height: 700,
 
     flexDirection: 'row',
     flexWrap: 'wrap',
+
+    marginTop: 30,
   },
-  typeItemBtn: {
+  typeBtn: {
     backgroundColor: 'rgba(0, 0, 0, 0)',
 
     width: 120,
     height: 45,
 
-    margin: 6,
+    marginRight: 13,
+    marginBottom: 13,
 
     borderWidth: 1,
     borderColor: '#C1C1C1',
-    borderRadius: 8,
+    borderRadius: 5,
 
     justifyContent: 'center',
     alignItems: 'center',
   },
   typeItem: {
-    color: '#C1C1C1',
+    color: '#888888',
     fontSize: 16,
   },
   typeAddBtn: {
@@ -132,17 +200,18 @@ const styles = StyleSheet.create({
     width: 120,
     height: 45,
 
-    margin: 6,
+    marginRight: 13,
+    marginBottom: 13,
 
     borderWidth: 1,
     borderColor: '#C1C1C1',
-    borderRadius: 8,
+    borderRadius: 5,
 
     justifyContent: 'center',
     alignItems: 'center',
   },
   typeAdd: {
-    color: '#C1C1C1',
+    color: '#888888',
     fontSize: 22,
   },
 });

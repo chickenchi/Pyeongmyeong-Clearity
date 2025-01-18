@@ -6,7 +6,7 @@ import {SafeAreaView, StyleSheet, View} from 'react-native';
 import CategoryHeader from '@category/header/CategoryHeader';
 import Category from '@category/section/Category';
 import {useRecoilState} from 'recoil';
-import {currentCategoryState} from '@atoms/category/CategoryAtom';
+import {currentCategoryScreenState} from '@atoms/category/CategoryAtom';
 import SelectCategory from './section/SelectCategory';
 
 interface CategoryProps {
@@ -18,7 +18,7 @@ export type RootStackParam = {
 };
 
 const CategoryPage = ({navigation}: CategoryProps) => {
-  const [currentCategory] = useRecoilState(currentCategoryState);
+  const [currentCategory] = useRecoilState(currentCategoryScreenState);
 
   return (
     <SafeAreaView style={styles.bg}>

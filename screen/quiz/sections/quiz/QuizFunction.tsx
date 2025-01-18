@@ -1,10 +1,7 @@
 import {MutableRefObject} from 'react';
 import {Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {csatTag, grammarTag, question, wordTag} from '@quiz/data/QuestionList';
+import {question, questionList} from '@quiz/data/QuestionList';
 import {Draw, Write} from '@assets/svgs/QuizSvg';
-import {RandomNumberByMaxLength} from '@utils/RandomNumberByMaxLength';
-import {hasCommonElement} from '@utils/HasCommonElement';
-import {findKeyByValue} from '@utils/FindKeyByValue';
 
 interface AvailableBoard {
   setSubscreen: (value: string) => void;
@@ -32,12 +29,59 @@ export const AvailableBoard = ({setSubscreen, subscreen}: AvailableBoard) => {
   );
 };
 
-interface SelectQuestion {
+interface QuestionListSettingProps {
+  setFilteredQuestionList: (value: question[]) => void;
+  ageElement: Set<string>;
+  difficultyElement: Set<string>;
+  categoryElement: Set<string>;
+}
+
+export const QuestionListSetting = ({
+  setFilteredQuestionList,
+  ageElement,
+  difficultyElement,
+  categoryElement,
+}: QuestionListSettingProps) => {
+  /*
+  데이터베이스 불러오는 과정 대체(추후 데이터베이스로 작업)
+  questionList라는 이름으로 recoil 선언할 예정(어차피 여기서 필터링할 거기 때문에 굳이 filtered로 지을 필요 없음)
+  */
+
+  let filteredQuestionList: question[] = [];
+
+  questionList.forEach(question => {
+    let agePass = false;
+    let difficultyPass = false;
+    let categoryPass = false;
+
+    question.tag.forEach(tag => {
+      if (!ageElement.size || ageElement.has(tag)) {
+        agePass = true;
+      }
+
+      if (!difficultyElement.size || difficultyElement.has(tag)) {
+        difficultyPass = true;
+      }
+
+      if (!categoryElement.size || categoryElement.has(tag)) {
+        categoryPass = true;
+      }
+    });
+
+    if (agePass && difficultyPass && categoryPass) {
+      filteredQuestionList.push(question);
+    }
+  });
+
+  setFilteredQuestionList(filteredQuestionList);
+};
+
+interface SelectNextQuestionProps {
   readOnly: boolean;
-  questionList: question[];
-  currentQuestionNo: string;
+  filteredQuestionList: question[];
+  currentQuestionNo: number;
   setIsPlaying: (value: boolean) => void;
-  setCurrentQuestionNo: (value: string) => void;
+  setCurrentQuestionNo: (value: number) => void;
   setCurrentQuestion: (value: question) => void;
   setSubscreen: (value: string) => void;
 
@@ -45,17 +89,12 @@ interface SelectQuestion {
   setRequest: (value: string) => void;
   no: MutableRefObject<number>;
   setType: (value: string) => void;
-  quizType: string;
   quizOrder: string;
-  setTypeOfQuestionList: (value: question[]) => void;
-  typeOfQuestionList: question[];
-  quizPriority: Map<string, number>;
-  setQuizPriority: (quizPriority: Map<string, number>) => void;
 }
 
-export const SelectQuestion = ({
+export const SelectNextQuestion = async ({
   readOnly,
-  questionList,
+  filteredQuestionList,
   currentQuestionNo,
   setIsPlaying,
   setCurrentQuestionNo,
@@ -65,95 +104,47 @@ export const SelectQuestion = ({
   setRequest,
   no,
   setType,
-  quizType,
   quizOrder,
-  setTypeOfQuestionList,
-  typeOfQuestionList,
-  quizPriority,
-  setQuizPriority,
-}: SelectQuestion) => {
-  if (readOnly) {
-    InsertTagList(questionList[parseInt(currentQuestionNo) - 1].tag, {
-      setTagList,
-      setRequest,
-      no,
-      setType,
-    });
-    return;
-  }
+}: SelectNextQuestionProps) => {
+  /** 현재 문제 번호 위치 */
+  let currentQuestionNumber = currentQuestionNo;
 
-  setIsPlaying(true);
-  PauseArt({setSubscreen});
+  // 읽기 전용이 아니라면
+  if (readOnly === false) {
+    setIsPlaying(true); // 문제 풀이 시작 상태로 변경
+    PauseArt({setSubscreen}); // 필기, 그림 등 종료
 
-  /** typeOfQuestionList */
-  var toql: question[] = [];
-  /** questionPriority */
-  var qp: Map<string, number> = new Map();
+    let questionCount = filteredQuestionList.length;
 
-  // backend에서 데이터 불러오는 과정 대체
-  if (!typeOfQuestionList.length) {
-    const questionCnt = questionList.length;
-
-    const tagMap = {
-      word: wordTag,
-      grammar: grammarTag,
-      examCode: null,
-      CSAT: csatTag,
-    };
-
-    let order = 0;
-
-    for (let i = 0; i < questionCnt; i++) {
-      const question = questionList[i];
-      const relatedTags = tagMap[quizType];
-
-      if (!relatedTags) continue;
-
-      if (hasCommonElement(question.tag, relatedTags)) {
-        toql.push(question);
-        qp.set(question.questionNo, order);
-
-        order += 1;
+    // 질문이 랜덤으로 나올 때
+    if (quizOrder === 'random') {
+      do {
+        let randomSelectQuestion = Math.floor(Math.random() * questionCount);
+        currentQuestionNumber = randomSelectQuestion;
+      } while (currentQuestionNumber === currentQuestionNo);
+      // 질문이 번호 순서대로 나올 때
+    } else {
+      // 이전 질문이 없다면
+      if (!currentQuestionNo) {
+        currentQuestionNumber = 0;
+      } else {
+        currentQuestionNumber = (currentQuestionNumber + 1) % questionCount;
       }
     }
 
-    setTypeOfQuestionList(toql);
-    setQuizPriority(qp);
-  } else {
-    toql = typeOfQuestionList;
-    qp = quizPriority;
+    setCurrentQuestionNo(currentQuestionNumber);
   }
 
-  console.log(qp);
-
-  /** SelectedQuestionNumber */
-  let SelQN: string = '01';
-
-  let toqlCnt = toql.length;
-
-  if (quizOrder === 'random') {
-    do {
-      let randomSelQN = RandomNumberByMaxLength(toqlCnt) - 1;
-      SelQN = toql[randomSelQN].questionNo;
-    } while (SelQN === currentQuestionNo);
-  } else {
-    if (!currentQuestionNo) SelQN = toql[0].questionNo;
-    else {
-      let order = (qp.get(currentQuestionNo) + 1) % toqlCnt;
-      SelQN = findKeyByValue(order, qp);
-    }
-  }
-
-  setCurrentQuestionNo(SelQN);
-
-  let SelQNInt = parseInt(SelQN) - 1;
-  InsertTagList(questionList[SelQNInt].tag, {
+  // 현재 문제의 태그 삽입
+  InsertTagList(filteredQuestionList[currentQuestionNumber].tag, {
     setTagList,
     setRequest,
     no,
     setType,
   });
-  setCurrentQuestion(questionList[SelQNInt]);
+
+  // 현재 문제 삽입
+  setCurrentQuestion(filteredQuestionList[currentQuestionNumber]);
 };
 
 interface InsertTagList {

@@ -1,6 +1,6 @@
 // atoms.ts
 import {atom} from 'recoil';
-import {question} from '@quiz/data/QuestionList';
+import {question, questionList} from '@quiz/data/QuestionList';
 import {ResultType} from '@quiz/QuizPage';
 
 export const playingState = atom({
@@ -68,12 +68,17 @@ const initialQuestion: question = {
   Description: '',
 };
 
+export const filteredQuestionListState = atom<question[]>({
+  key: 'filteredQuestionListState',
+  default: questionList,
+});
+
 export const currentQuestionState = atom<question>({
   key: 'currentQuestionState',
   default: initialQuestion,
 });
 
-export const currentQuestionNoState = atom<string>({
+export const currentQuestionNoState = atom<number>({
   key: 'currentQuestionNoState',
   default: null,
 });
@@ -91,11 +96,6 @@ export const readOnlyState = atom({
 
 // --
 
-export const typeOfQuestionListState = atom<question[]>({
-  key: 'typeOfQuestionListState',
-  default: [],
-});
-
 export const quizTypeState = atom<string>({
   key: 'quizTypeState',
   default: '',
@@ -104,9 +104,4 @@ export const quizTypeState = atom<string>({
 export const quizOrderState = atom<string>({
   key: 'quizOrderState',
   default: 'random',
-});
-
-export const quizPriorityState = atom<Map<string, number>>({
-  key: 'quizPriorityState',
-  default: null,
 });

@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   List: {
     position: 'absolute',
     width: 65,
-    height: '150%',
+    height: '100%',
 
     right: 0,
     bottom: 0,

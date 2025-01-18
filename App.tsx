@@ -15,7 +15,8 @@ import {AlertProvider} from '@components/common-popups/alert/AlertProvider';
 import {AlertManager} from '@components/common-popups/alert/AlertManager';
 import {useFonts} from 'expo-font';
 import CategoryPage from '@category/CategoryPage';
-import SelectCategory from '@category/section/SelectCategory';
+import {StartPopupProvider} from '@main/components/popup/StartPopupProvider';
+import {AgeController} from 'screen/age/AgeController';
 
 const Stack = createNativeStackNavigator<CommonType.RootStackPageList>();
 
@@ -27,22 +28,25 @@ const App: React.FC = () => {
   return (
     <NavigationContainer>
       <RecoilRoot>
-        <AlertProvider>
-          <AlertManager />
-          <Stack.Navigator
-            initialRouteName="category"
-            screenOptions={{headerShown: false}}>
-            <Stack.Screen name="intro" component={Intro} />
-            <Stack.Screen name="login" component={LoginPage} />
-            <Stack.Screen name="register" component={RegisterPage} />
-            <Stack.Screen name="home" component={Home} />
-            <Stack.Screen name="profile" component={Profile} />
-            <Stack.Screen name="ranking" component={Ranking} />
-            <Stack.Screen name="setting" component={Setting} />
-            <Stack.Screen name="quiz" component={QuizPage} />
-            <Stack.Screen name="category" component={CategoryPage} />
-          </Stack.Navigator>
-        </AlertProvider>
+        <StartPopupProvider>
+          <AgeController />
+          <AlertProvider>
+            <AlertManager />
+            <Stack.Navigator
+              initialRouteName="profile"
+              screenOptions={{headerShown: false}}>
+              <Stack.Screen name="intro" component={Intro} />
+              <Stack.Screen name="login" component={LoginPage} />
+              <Stack.Screen name="register" component={RegisterPage} />
+              <Stack.Screen name="home" component={Home} />
+              <Stack.Screen name="profile" component={Profile} />
+              <Stack.Screen name="ranking" component={Ranking} />
+              <Stack.Screen name="setting" component={Setting} />
+              <Stack.Screen name="quiz" component={QuizPage} />
+              <Stack.Screen name="category" component={CategoryPage} />
+            </Stack.Navigator>
+          </AlertProvider>
+        </StartPopupProvider>
       </RecoilRoot>
     </NavigationContainer>
   );

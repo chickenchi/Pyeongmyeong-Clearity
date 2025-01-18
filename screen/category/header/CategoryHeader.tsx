@@ -23,10 +23,6 @@ const CategoryHeader = () => {
       </TouchableOpacity>
 
       <View style={styles.btnSet}>
-        <TouchableOpacity style={styles.save}>
-          <Save />
-        </TouchableOpacity>
-
         <TouchableOpacity
           style={styles.back}
           onPress={() => navigation.navigate('quiz')}>
@@ -54,8 +50,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     right: 20,
   },
-  save: {},
-  back: {marginLeft: 15},
+  back: {},
 });
 
 export default CategoryHeader;

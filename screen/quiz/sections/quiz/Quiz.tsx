@@ -6,14 +6,13 @@ import {useRecoilState} from 'recoil';
 import {
   currentQuestionNoState,
   currentQuestionState,
+  filteredQuestionListState,
   playingState,
   quizOrderState,
-  quizPriorityState,
   quizTypeState,
   readOnlyState,
   selectedQuestionState,
   showTagState,
-  typeOfQuestionListState,
 } from '@atoms/quiz/QuizAtom';
 
 /* Tools */
@@ -29,9 +28,15 @@ import ImageContainer from '@quiz/sections/quiz/components/ImageContainer';
 import {
   AvailableBoard,
   InsertTagList,
+  QuestionListSetting,
   QuestionStyling,
-  SelectQuestion,
+  SelectNextQuestion,
 } from './QuizFunction';
+import {
+  ageElementState,
+  categoryElementState,
+  difficultyElementState,
+} from '@atoms/common/Atom';
 
 const Quiz = () => {
   const [readOnly] = useRecoilState(readOnlyState);
@@ -45,12 +50,7 @@ const Quiz = () => {
     selectedQuestionState,
   );
   const [requestedShowTag, requestingShowTag] = useRecoilState(showTagState);
-  const [quizType] = useRecoilState(quizTypeState);
   const [quizOrder] = useRecoilState(quizOrderState);
-  const [typeOfQuestionList, setTypeOfQuestionList] = useRecoilState(
-    typeOfQuestionListState,
-  );
-  const [quizPriority, setQuizPriority] = useRecoilState(quizPriorityState);
 
   const [tagList, setTagList] = useState<JSX.Element[]>([]);
   const [currentOpacity, setCurrentOpacity] = useState(80);
@@ -65,9 +65,13 @@ const Quiz = () => {
 
   let no = useRef(0);
 
+  const [filteredQuestionList, setFilteredQuestionList] = useRecoilState(
+    filteredQuestionListState,
+  );
+
   const selectQuestionProps = {
     readOnly,
-    questionList,
+    filteredQuestionList,
     currentQuestionNo,
     setIsPlaying,
     setCurrentQuestionNo,
@@ -77,12 +81,18 @@ const Quiz = () => {
     setRequest,
     no,
     setType,
-    quizType,
     quizOrder,
-    setTypeOfQuestionList,
-    typeOfQuestionList,
-    quizPriority,
-    setQuizPriority,
+  };
+
+  const [ageElement] = useRecoilState(ageElementState);
+  const [difficultyElement] = useRecoilState(difficultyElementState);
+  const [categoryElement] = useRecoilState(categoryElementState);
+
+  const questionListSettingProps = {
+    setFilteredQuestionList,
+    ageElement,
+    difficultyElement,
+    categoryElement,
   };
 
   const insertTagListProps = {
@@ -93,7 +103,11 @@ const Quiz = () => {
   };
 
   useEffect(() => {
-    let curQuestionNo = parseInt(currentQuestionNo) - 1;
+    QuestionListSetting(questionListSettingProps);
+  }, []); // 초기 작업
+
+  useEffect(() => {
+    let curQuestionNo = currentQuestionNo - 1;
 
     if (requestedShowTag) {
       InsertTagList(questionList[curQuestionNo].tag, insertTagListProps);
@@ -105,9 +119,9 @@ const Quiz = () => {
       // readOnly의 경우 적용 안 됨
       requestingSelectingQuestion(!reqSelQ);
     } else {
-      SelectQuestion(selectQuestionProps);
+      SelectNextQuestion(selectQuestionProps);
     }
-  }, [reqSelQ, readOnly, requestedShowTag]);
+  }, [reqSelQ, readOnly, requestedShowTag]); // 문제 보기, 문제 넘기기 혹은 태그 보기를 사용했을 때
 
   return (
     <SafeAreaView style={styles.BG}>

@@ -1,6 +1,8 @@
 import {atom} from 'recoil';
 
-export const currentCategoryState = atom<'view' | 'select'>({
-  key: 'currentCategoryState',
+export const currentCategoryScreenState = atom<
+  'view' | 'selectAge' | 'selectDifficulty' | 'selectCategory'
+>({
+  key: 'currentCategoryScreenState',
   default: 'view',
 });

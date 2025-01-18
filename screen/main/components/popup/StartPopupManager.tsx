@@ -31,68 +31,6 @@ export const StartPopupManager = () => {
   const buttonConfig = {
     category: [
       {
-        text: '어휘',
-        onPress: () => {
-          hideStartPopup();
-          showStartPopup('wordForm');
-        },
-      },
-      {
-        text: '문법',
-        onPress: () => {
-          hideStartPopup();
-          showStartPopup('grammarForm');
-        },
-      },
-      {
-        text: '문제 암호',
-        onPress: () => {
-          hideStartPopup();
-          setQuizType('examCode');
-          navigation.navigate('quiz');
-        },
-      },
-      {
-        text: '수능 기출',
-        onPress: () => {
-          hideStartPopup();
-          setQuizType('CSAT');
-          navigation.navigate('quiz');
-        },
-      },
-    ],
-    wordForm: [
-      {
-        text: '연습 형식',
-        onPress: () => {
-          showStartPopup('wordPractice');
-        },
-      },
-      {
-        text: '시험 형식',
-        onPress: () => {
-          hideStartPopup();
-        },
-      },
-    ],
-    grammarForm: [
-      {
-        text: '연습 형식',
-        onPress: () => {
-          hideStartPopup();
-          setQuizType('grammar');
-          navigation.navigate('quiz');
-        },
-      },
-      {
-        text: '시험 형식',
-        onPress: () => {
-          hideStartPopup();
-        },
-      },
-    ],
-    wordPractice: [
-      {
         text: '십자말풀이',
         onPress: () => {
           showAlert({
@@ -104,11 +42,45 @@ export const StartPopupManager = () => {
         },
       },
       {
-        text: '종합 문제',
+        text: '연습 문제',
         onPress: () => {
           hideStartPopup();
-          setQuizType('word');
           navigation.navigate('quiz');
+        },
+      },
+      {
+        text: '모의 시험',
+        onPress: () => {
+          showAlert({
+            title: '평명',
+            description: '현재는 이용하실 수 없습니다.',
+            type: 'okay',
+            onConfirm: () => {},
+          });
+        },
+      },
+      {
+        text: '문제 암호',
+        onPress: () => {
+          showAlert({
+            title: '평명',
+            description: '현재는 이용하실 수 없습니다.',
+            type: 'okay',
+            onConfirm: () => {},
+          });
+        },
+      },
+    ],
+    codeForm: [
+      {
+        text: '코드 입력',
+        onPress: () => {
+          showAlert({
+            title: '평명',
+            description: '현재는 이용하실 수 없습니다.',
+            type: 'okay',
+            onConfirm: () => {},
+          });
         },
       },
     ],

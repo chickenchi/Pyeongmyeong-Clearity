@@ -1,5 +1,11 @@
 import React, {useRef, useState} from 'react';
-import {View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import {List} from '@assets/svgs/HeaderSvg';
 import {Bookmark, Category, Help} from '@assets/svgs/ListSvg';
 import {useRecoilState} from 'recoil';
@@ -7,12 +13,12 @@ import {showListState} from '@atoms/quiz/QuizAtom';
 import {useAlert} from '@components/common-popups/alert/AlertProvider';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-/* 위치 잘못 잡힘 */
 
 export type RootStackParam = {
   category: undefined;
 };
 
+/* 아이콘 위치 잘못 잡힘 */
 const QuizList = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParam>>();
 
