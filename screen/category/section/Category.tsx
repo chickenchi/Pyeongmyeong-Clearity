@@ -99,8 +99,6 @@ const CategoryTypeItem = () => {
 const Category = () => {
   return (
     <SafeAreaView style={styles.bg}>
-      <View style={styles.hr} />
-
       <View style={styles.titleSet}>
         <Text style={styles.title}>나의 문제 유형</Text>
 
@@ -124,12 +122,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  hr: {
-    backgroundColor: 'black',
-    width: Dimensions.get('screen').height / 2.5,
-    height: 1,
-    marginBottom: 20,
   },
   titleSet: {
     position: 'relative',

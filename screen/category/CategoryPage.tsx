@@ -2,12 +2,13 @@ import {Logo} from '@assets/svgs/HeaderSvg';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useEffect} from 'react';
-import {SafeAreaView, StyleSheet, View} from 'react-native';
+import {Dimensions, SafeAreaView, StyleSheet, View} from 'react-native';
 import CategoryHeader from '@category/header/CategoryHeader';
 import Category from '@category/section/Category';
 import {useRecoilState} from 'recoil';
 import {currentCategoryScreenState} from '@atoms/category/CategoryAtom';
 import SelectCategory from './section/SelectCategory';
+import Hr from '@components/ui/Hr';
 
 interface CategoryProps {
   navigation: NativeStackNavigationProp<any, 'default'>;
@@ -25,6 +26,11 @@ const CategoryPage = ({navigation}: CategoryProps) => {
       <View style={styles.header}>
         <CategoryHeader />
       </View>
+
+      <View style={styles.hr}>
+        <Hr />
+      </View>
+
       <View>
         {currentCategory === 'view' ? <Category /> : <SelectCategory />}
       </View>
@@ -36,6 +42,9 @@ const styles = StyleSheet.create({
   bg: {
     flex: 1,
     alignItems: 'center',
+  },
+  hr: {
+    marginBottom: 20,
   },
   header: {
     width: '100%',

@@ -163,8 +163,6 @@ const SelectCategory = () => {
 
   return (
     <SafeAreaView style={styles.bg}>
-      <View style={styles.hr} />
-
       <View style={styles.titleSet}>
         <TouchableOpacity
           style={styles.back}

@@ -53,19 +53,19 @@ const Profile = () => {
           <Text style={styles.id}>guest0001</Text>
           <Text style={styles.name}>정보 없음</Text>
           <Text style={styles.introduce}>미가입된 계정입니다.</Text>
-          <TouchableOpacity
-            style={styles.setting}
-            onPress={() => {
-              showAlert({
-                title: '평명',
-                description: `추후 추가할 예정입니다.`,
-                type: 'okay',
-                onConfirm: () => {},
-              });
-            }}>
-            <Setting />
-          </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          style={styles.setting}
+          onPress={() => {
+            showAlert({
+              title: '평명',
+              description: `추후 추가할 예정입니다.`,
+              type: 'okay',
+              onConfirm: () => {},
+            });
+          }}>
+          <Setting />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.line} />
@@ -109,28 +109,22 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   profile: {
-    width: '100%',
+    width: '90%',
     height: '18%',
     marginTop: 130,
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   profilePic: {
-    backgroundColor: 'red',
-
     justifyContent: 'center',
 
     height: 150,
 
-    marginLeft: 50,
+    marginLeft: 20,
+    marginRight: 20,
   },
   info: {
-    backgroundColor: 'red',
     flexDirection: 'column',
     justifyContent: 'center',
-
-    width: '80%',
     height: 150,
   },
   call: {
@@ -165,7 +159,7 @@ const styles = StyleSheet.create({
   },
   setting: {
     position: 'absolute',
-    right: 190,
+    right: 0,
     top: 0,
   },
   general: {

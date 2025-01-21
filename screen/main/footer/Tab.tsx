@@ -17,6 +17,7 @@ export type RootStackParam = {
   profile: undefined;
   ranking: undefined;
   setting: undefined;
+  education: undefined;
 };
 
 const Tab = (props: any) => {
@@ -55,6 +56,17 @@ const Tab = (props: any) => {
               strokeWidth="1.3"
               stroke-linecap="round"
               stroke-linejoin="round"
+            />
+          </Svg>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.popupBtn}
+          onPress={() => navigation.navigate('education')}
+          underlayColor="none">
+          <Svg width="35" height="35" viewBox="0 0 28 26" fill="none">
+            <Path
+              d="M14 0L28 9.43837L25.8293 10.902V18.64H23.4635V12.497L22.2805 13.2944V20.4803C22.2805 22.2838 21.081 23.6886 19.6154 24.5768C18.119 25.481 16.1316 26 14 26C11.8684 26 9.87985 25.481 8.38462 24.5768C6.91779 23.6886 5.71948 22.2826 5.71948 20.479V13.2944L0 9.43837L14 0ZM8.08534 14.8894V20.4803C8.08534 21.0483 8.47571 21.7894 9.57702 22.4556C10.6511 23.1058 12.2114 23.5475 14 23.5475C15.7886 23.5475 17.3489 23.1058 18.423 22.4556C19.5255 21.7894 19.9135 21.0483 19.9135 20.4803V14.8894L13.9988 18.8767L8.08534 14.8894ZM23.6586 9.43837L14 2.92733L4.34136 9.43837L14 15.9494L23.6586 9.43837Z"
+              fill={props.colDir == 'education' ? '#E04E92' : 'black'}
             />
           </Svg>
         </TouchableHighlight>

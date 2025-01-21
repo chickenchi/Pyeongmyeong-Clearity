@@ -4,7 +4,13 @@ import Hr from '@components/ui/Hr';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useEffect} from 'react';
-import {SafeAreaView, StyleSheet, View, TouchableOpacity} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 
 export type RootStackParam = {
   home: undefined;

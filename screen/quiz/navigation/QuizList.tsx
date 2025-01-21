@@ -7,7 +7,7 @@ import {
   Text,
 } from 'react-native';
 import {List} from '@assets/svgs/HeaderSvg';
-import {Bookmark, Category, Help} from '@assets/svgs/ListSvg';
+import {Bookmark, Category, Help} from '@assets/svgs/ListSVG';
 import {useRecoilState} from 'recoil';
 import {showListState} from '@atoms/quiz/QuizAtom';
 import {useAlert} from '@components/common-popups/alert/AlertProvider';

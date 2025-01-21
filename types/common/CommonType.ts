@@ -5,6 +5,7 @@ export declare namespace CommonType {
         register: undefined;
         home: undefined;
         profile: undefined;
+        education: undefined;
         ranking: undefined;
         setting: undefined;
         tab: undefined;
