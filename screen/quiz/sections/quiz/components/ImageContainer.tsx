@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import {Exit} from '@assets/svgs/QuizSvg';
+import {Exit} from '@assets/svgs/QuizSVG';
 import Slider from '@react-native-community/slider';
 
 interface ImageContainer {

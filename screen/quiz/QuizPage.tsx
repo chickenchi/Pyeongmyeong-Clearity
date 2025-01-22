@@ -30,7 +30,6 @@ export interface ResultType {
   correct: any;
   solvingTime: string;
   type: string;
-  NextQuestion: () => void;
 }
 
 const fontUrl =

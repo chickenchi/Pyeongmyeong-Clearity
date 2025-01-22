@@ -26,7 +26,6 @@ export interface ToggleResultProps {
   showedResult: boolean;
   setTime: Dispatch<SetStateAction<number>>;
   setIsPlaying: Dispatch<SetStateAction<boolean>>;
-  requestingSelectingQuestion: Dispatch<SetStateAction<boolean>>;
   time: number;
 }
 
@@ -42,7 +41,6 @@ export const ToggleResult = async (
     setTime,
     setIsPlaying,
     time,
-    requestingSelectingQuestion,
   }: ToggleResultProps,
 ) => {
   const Correct = isCorr ? '정답입니다!' : '오답입니다.';
@@ -56,12 +54,6 @@ export const ToggleResult = async (
     correct,
     solvingTime,
     type,
-    NextQuestion: () =>
-      NextQuestion({
-        setIsPlaying,
-        showingResult,
-        requestingSelectingQuestion,
-      }),
   });
 
   showingResult(!showedResult);

@@ -1,7 +1,7 @@
 import {MutableRefObject} from 'react';
 import {Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {question, questionList} from '@quiz/data/QuestionList';
-import {Draw, Write} from '@assets/svgs/QuizSvg';
+import {Draw, Write} from '@assets/svgs/QuizSVG';
 
 interface AvailableBoard {
   setSubscreen: (value: string) => void;
@@ -34,6 +34,7 @@ interface QuestionListSettingProps {
   ageElement: Set<string>;
   difficultyElement: Set<string>;
   categoryElement: Set<string>;
+  setCurrentQuestionNo: (value: number) => void;
 }
 
 export const QuestionListSetting = ({
@@ -41,6 +42,7 @@ export const QuestionListSetting = ({
   ageElement,
   difficultyElement,
   categoryElement,
+  setCurrentQuestionNo,
 }: QuestionListSettingProps) => {
   /*
   데이터베이스 불러오는 과정 대체(추후 데이터베이스로 작업)
@@ -74,6 +76,7 @@ export const QuestionListSetting = ({
   });
 
   setFilteredQuestionList(filteredQuestionList);
+  setCurrentQuestionNo(-1);
 };
 
 interface SelectNextQuestionProps {
@@ -125,11 +128,7 @@ export const SelectNextQuestion = async ({
       // 질문이 번호 순서대로 나올 때
     } else {
       // 이전 질문이 없다면
-      if (!currentQuestionNo) {
-        currentQuestionNumber = 0;
-      } else {
-        currentQuestionNumber = (currentQuestionNumber + 1) % questionCount;
-      }
+      currentQuestionNumber = (currentQuestionNumber + 1) % questionCount;
     }
 
     setCurrentQuestionNo(currentQuestionNumber);
@@ -144,7 +143,9 @@ export const SelectNextQuestion = async ({
   });
 
   // 현재 문제 삽입
-  setCurrentQuestion(filteredQuestionList[currentQuestionNumber]);
+  if (!readOnly) {
+    setCurrentQuestion(filteredQuestionList[currentQuestionNumber]);
+  }
 };
 
 interface InsertTagList {

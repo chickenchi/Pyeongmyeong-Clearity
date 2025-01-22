@@ -1,4 +1,4 @@
-import {question} from '@quiz/data/questionList';
+import {question} from '@quiz/data/QuestionList';
 import {ScrollView, View, Text, StyleSheet} from 'react-native';
 
 interface MultipleChoice {

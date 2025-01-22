@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {useState} from 'react';
 import {DrawingCanvas} from './DrawingCanvas';
-import {Eraser, Write} from '@assets/svgs/QuizSvg';
+import {Eraser, Write} from '@assets/svgs/QuizSVG';
 
 const DrawingBoard = () => {
   const [toolType, setToolType] = useState<string>('pencil');

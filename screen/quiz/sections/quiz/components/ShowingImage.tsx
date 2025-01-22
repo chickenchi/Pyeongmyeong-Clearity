@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {ShowImage} from '@assets/svgs/QuizSvg';
+import {ShowImage} from '@assets/svgs/QuizSVG';
 
 interface ShowingImage {
   setSubscreen: (value: string) => void;

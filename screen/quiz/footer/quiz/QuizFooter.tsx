@@ -8,11 +8,13 @@ import {
   TextInput,
 } from 'react-native';
 
-import {Clue, ExitAnswer, Correct, Wrong} from '@assets/svgs/QuizSvg';
+import {Clue, ExitAnswer, Correct, Wrong} from '@assets/svgs/QuizSVG';
 import {useRecoilState} from 'recoil';
 import {
   currentQuestionState,
+  nextQuestionState,
   playingState,
+  readOnlyState,
   resultState,
   selectedQuestionState,
   showedResultState,
@@ -28,11 +30,13 @@ const QuizFooter = () => {
   const [selectedNumber, numberSelecting] = useState<number>(0);
   const [currentHintCnt, changeHintCnt] = useState<number>(4);
   const [showedAnswer, answerShowing] = useState<boolean>(false);
+  const [, setReadOnly] = useRecoilState(readOnlyState);
 
   const {showAlert} = useAlert();
 
   const [currentQuestion] = useRecoilState(currentQuestionState);
   const [, requestingSelectingQuestion] = useRecoilState(selectedQuestionState);
+  const [, requestingNextQuestion] = useRecoilState(nextQuestionState);
 
   const [showedResult, showingResult] = useRecoilState(showedResultState);
   const [, setIsPlaying] = useRecoilState(playingState);
@@ -221,7 +225,7 @@ const QuizFooter = () => {
               type: 'select',
               onConfirm: () => {
                 setTime(0);
-                requestingSelectingQuestion(true);
+                requestingNextQuestion(true);
               },
             });
           }}>

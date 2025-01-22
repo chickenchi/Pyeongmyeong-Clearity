@@ -4,9 +4,9 @@ export const ShowImage = () => {
   return (
     <Svg
       transform="rotate(-10)"
-      width="115"
-      height="97"
-      viewBox="0 -6 64 66"
+      width="105"
+      height="95"
+      viewBox="0 0 64 66"
       fill="none">
       <Path
         d="M63.5 31.5803C63.5 48.7393 49.4032 62.6606 32 62.6606C14.5968 62.6606 0.5 48.7393 0.5 31.5803C0.5 14.4213 14.5968 0.5 32 0.5C49.4032 0.5 63.5 14.4213 63.5 31.5803Z"

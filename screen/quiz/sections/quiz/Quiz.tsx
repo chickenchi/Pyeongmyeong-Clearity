@@ -7,6 +7,7 @@ import {
   currentQuestionNoState,
   currentQuestionState,
   filteredQuestionListState,
+  nextQuestionState,
   playingState,
   quizOrderState,
   quizTypeState,
@@ -46,9 +47,11 @@ const Quiz = () => {
   );
   const [currentQuestion, setCurrentQuestion] =
     useRecoilState(currentQuestionState);
-  const [reqSelQ, requestingSelectingQuestion] = useRecoilState(
+  const [requestSelectedQuestion, requestingSelectingQuestion] = useRecoilState(
     selectedQuestionState,
   );
+  const [nextQuestion, requestingNextQuestion] =
+    useRecoilState(nextQuestionState);
   const [requestedShowTag, requestingShowTag] = useRecoilState(showTagState);
   const [quizOrder] = useRecoilState(quizOrderState);
 
@@ -93,6 +96,7 @@ const Quiz = () => {
     ageElement,
     difficultyElement,
     categoryElement,
+    setCurrentQuestionNo,
   };
 
   const insertTagListProps = {
@@ -103,10 +107,13 @@ const Quiz = () => {
   };
 
   useEffect(() => {
-    QuestionListSetting(questionListSettingProps);
-  }, []); // 초기 작업
+    // 초기 작업
+    if (currentQuestionNo === null) {
+      QuestionListSetting(questionListSettingProps);
+      requestingNextQuestion(true);
+    }
 
-  useEffect(() => {
+    // 태그 삽입 작업
     let curQuestionNo = currentQuestionNo - 1;
 
     if (requestedShowTag) {
@@ -115,13 +122,19 @@ const Quiz = () => {
       return;
     }
 
-    if (reqSelQ) {
+    // requestSelectedQuestion가 가동했을 때
+    if (requestSelectedQuestion) {
       // readOnly의 경우 적용 안 됨
-      requestingSelectingQuestion(!reqSelQ);
-    } else {
-      SelectNextQuestion(selectQuestionProps);
+      requestingSelectingQuestion(!requestSelectedQuestion);
     }
-  }, [reqSelQ, readOnly, requestedShowTag]); // 문제 보기, 문제 넘기기 혹은 태그 보기를 사용했을 때
+  }, [requestSelectedQuestion, requestedShowTag, filteredQuestionList]); // 문제 보기, 문제 넘기기 혹은 태그 보기를 사용했을 때
+
+  useEffect(() => {
+    if (nextQuestion && currentQuestionNo !== null) {
+      SelectNextQuestion(selectQuestionProps);
+      requestingNextQuestion(false);
+    }
+  }, [currentQuestionNo, nextQuestion]);
 
   return (
     <SafeAreaView style={styles.BG}>

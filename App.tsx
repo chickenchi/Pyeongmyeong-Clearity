@@ -34,7 +34,7 @@ const App: React.FC = () => {
           <AlertProvider>
             <AlertManager />
             <Stack.Navigator
-              initialRouteName="category"
+              initialRouteName="home"
               screenOptions={{headerShown: false}}>
               <Stack.Screen name="intro" component={Intro} />
               <Stack.Screen name="login" component={LoginPage} />

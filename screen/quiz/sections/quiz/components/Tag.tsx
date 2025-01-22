@@ -1,4 +1,4 @@
-import {ToggleTag} from '@assets/svgs/QuizSvg';
+import {ToggleTag} from '@assets/svgs/QuizSVG';
 import {ScrollView, TouchableOpacity, View, StyleSheet} from 'react-native';
 
 interface Tag {

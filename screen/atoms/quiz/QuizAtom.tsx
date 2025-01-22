@@ -88,6 +88,11 @@ export const selectedQuestionState = atom({
   default: true,
 });
 
+export const nextQuestionState = atom({
+  key: 'nextQuestionState',
+  default: true,
+});
+
 // --
 export const readOnlyState = atom({
   key: 'readOnlyState',
@@ -103,5 +108,5 @@ export const quizTypeState = atom<string>({
 
 export const quizOrderState = atom<string>({
   key: 'quizOrderState',
-  default: 'random',
+  default: 'order',
 });

@@ -9,7 +9,7 @@ import {
 import {List} from '@assets/svgs/HeaderSvg';
 import {Bookmark, Category, Help} from '@assets/svgs/ListSVG';
 import {useRecoilState} from 'recoil';
-import {showListState} from '@atoms/quiz/QuizAtom';
+import {currentQuestionNoState, showListState} from '@atoms/quiz/QuizAtom';
 import {useAlert} from '@components/common-popups/alert/AlertProvider';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
@@ -23,6 +23,7 @@ const QuizList = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParam>>();
 
   const [isListVisible, setIsListVisible] = useRecoilState(showListState);
+  const [, setCurrentQuestionNo] = useRecoilState(currentQuestionNoState);
   const {showAlert} = useAlert();
 
   return (
@@ -54,6 +55,7 @@ const QuizList = () => {
 계속하시겠습니까?`,
               type: 'select',
               onConfirm: () => {
+                setCurrentQuestionNo(null);
                 navigation.navigate('category');
               },
             });

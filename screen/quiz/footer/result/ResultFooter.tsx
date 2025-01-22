@@ -9,19 +9,22 @@ import {
 } from 'react-native';
 import {
   checkedQuestionState,
-  resultState,
+  nextQuestionState,
+  playingState,
   showedExplanationState,
+  showedResultState,
 } from '@atoms/quiz/QuizAtom';
 
 const ResultFooter = () => {
-  const [result] = useRecoilState(resultState);
   const [checkQuestion, setCheckQuestion] =
     useRecoilState(checkedQuestionState);
   const [showedExplanation, showingExplanation] = useRecoilState(
     showedExplanationState,
   );
 
-  console.log(result.NextQuestion);
+  const [, setIsPlaying] = useRecoilState(playingState);
+  const [, showingResult] = useRecoilState(showedResultState);
+  const [, requestingNextQuestion] = useRecoilState(nextQuestionState);
 
   return (
     <SafeAreaView style={styles.Footer}>
@@ -36,7 +39,13 @@ const ResultFooter = () => {
           </TouchableOpacity>
         )}
         {!checkQuestion && !showedExplanation && (
-          <TouchableOpacity style={styles.btn} onPress={result.NextQuestion}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => {
+              setIsPlaying(true);
+              showingResult(false);
+              requestingNextQuestion(true);
+            }}>
             <Text style={styles.btnContent}>다음 문제</Text>
           </TouchableOpacity>
         )}
