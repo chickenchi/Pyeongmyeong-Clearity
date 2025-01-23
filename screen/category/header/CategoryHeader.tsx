@@ -1,5 +1,10 @@
 import {Back, Save} from '@assets/svgs/CategorySVG';
 import {Logo} from '@assets/svgs/HeaderSvg';
+import {
+  currentQuestionNoState,
+  nextQuestionState,
+  timeState,
+} from '@atoms/quiz/QuizAtom';
 import Hr from '@components/ui/Hr';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -11,6 +16,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import {useRecoilCallback, useRecoilState} from 'recoil';
 
 export type RootStackParam = {
   home: undefined;
@@ -19,6 +25,18 @@ export type RootStackParam = {
 
 const CategoryHeader = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParam>>();
+
+  const [, setTime] = useRecoilState(timeState);
+  const [, requestingNextQuestion] = useRecoilState(nextQuestionState);
+  const [, setCurrentQuestionNo] = useRecoilState(currentQuestionNoState);
+
+  const backToQuiz = () => {
+    setTime(0);
+    requestingNextQuestion(true);
+    setCurrentQuestionNo(null);
+
+    navigation.navigate('quiz');
+  };
 
   return (
     <SafeAreaView style={styles.bg}>
@@ -29,9 +47,7 @@ const CategoryHeader = () => {
       </TouchableOpacity>
 
       <View style={styles.btnSet}>
-        <TouchableOpacity
-          style={styles.back}
-          onPress={() => navigation.navigate('quiz')}>
+        <TouchableOpacity style={styles.back} onPress={() => backToQuiz()}>
           <Back />
         </TouchableOpacity>
       </View>

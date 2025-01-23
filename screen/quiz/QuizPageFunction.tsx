@@ -4,22 +4,6 @@ import {ResultType} from '@quiz/QuizPage';
 import {formatTime} from '@utils/FormatTime';
 import {storeData, getData} from '@utils/DataSetting';
 
-interface NextQuestionProps {
-  setIsPlaying: Dispatch<SetStateAction<boolean>>;
-  showingResult: Dispatch<SetStateAction<boolean>>;
-  requestingSelectingQuestion: Dispatch<SetStateAction<boolean>>;
-}
-
-export const NextQuestion = ({
-  setIsPlaying,
-  showingResult,
-  requestingSelectingQuestion,
-}: NextQuestionProps) => {
-  setIsPlaying(true);
-  showingResult(false);
-  requestingSelectingQuestion(true);
-};
-
 export interface ToggleResultProps {
   changeResult: (value: ResultType) => void;
   showingResult: Dispatch<SetStateAction<boolean>>;

@@ -51,11 +51,10 @@ const QuizList = () => {
           onPress={() => {
             showAlert({
               title: '평명',
-              description: `풀던 문제의 정보를 잃을 수 있습니다!
+              description: `기존에 풀던 문제의 데이터를 잃을 수 있습니다!
 계속하시겠습니까?`,
               type: 'select',
               onConfirm: () => {
-                setCurrentQuestionNo(null);
                 navigation.navigate('category');
               },
             });

@@ -127,7 +127,12 @@ const Quiz = () => {
       // readOnly의 경우 적용 안 됨
       requestingSelectingQuestion(!requestSelectedQuestion);
     }
-  }, [requestSelectedQuestion, requestedShowTag, filteredQuestionList]); // 문제 보기, 문제 넘기기 혹은 태그 보기를 사용했을 때
+  }, [
+    currentQuestionNo,
+    requestSelectedQuestion,
+    requestedShowTag,
+    filteredQuestionList,
+  ]); // 문제 보기, 문제 넘기기 혹은 태그 보기를 사용했을 때
 
   useEffect(() => {
     if (nextQuestion && currentQuestionNo !== null) {
