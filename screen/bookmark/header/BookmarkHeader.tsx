@@ -23,7 +23,7 @@ export type RootStackParam = {
   quiz: undefined;
 };
 
-const CategoryHeader = () => {
+const BookmarkHeader = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParam>>();
 
   const [, setTime] = useRecoilState(timeState);
@@ -75,4 +75,4 @@ const styles = StyleSheet.create({
   back: {},
 });
 
-export default CategoryHeader;
+export default BookmarkHeader;

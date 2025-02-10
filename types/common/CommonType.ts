@@ -12,5 +12,6 @@ export declare namespace CommonType {
         crossword: undefined;
         quiz: undefined;
         category: undefined;
+        bookmark: undefined;
     };
 }

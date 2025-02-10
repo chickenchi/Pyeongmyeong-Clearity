@@ -16,7 +16,6 @@ import {
 } from '@assets/svgs/EducationSVG';
 
 import Tab from '@main/footer/Tab';
-import {StartPopupManager} from '@main/components/popup/StartPopupManager';
 import {useStartPopup} from '@main/components/popup/StartPopupProvider';
 import MainHeader from '@main/header/MainHeader';
 

@@ -1,4 +1,4 @@
-import {Logo} from '@assets/svgs/HeaderSvg';
+import {Logo} from '@assets/svgs/HeaderSVG';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useEffect} from 'react';

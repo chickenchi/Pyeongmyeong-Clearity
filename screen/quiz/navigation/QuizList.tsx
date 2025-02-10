@@ -1,21 +1,16 @@
 import React, {useRef, useState} from 'react';
-import {
-  View,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
-import {List} from '@assets/svgs/HeaderSvg';
+import {View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
+import {List} from '@assets/svgs/HeaderSVG';
 import {Bookmark, Category, Help} from '@assets/svgs/ListSVG';
 import {useRecoilState} from 'recoil';
-import {currentQuestionNoState, showListState} from '@atoms/quiz/QuizAtom';
+import {showListState} from '@atoms/quiz/QuizAtom';
 import {useAlert} from '@components/common-popups/alert/AlertProvider';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 
 export type RootStackParam = {
   category: undefined;
+  bookmark: undefined;
 };
 
 /* 아이콘 위치 잘못 잡힘 */
@@ -23,7 +18,6 @@ const QuizList = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParam>>();
 
   const [isListVisible, setIsListVisible] = useRecoilState(showListState);
-  const [, setCurrentQuestionNo] = useRecoilState(currentQuestionNoState);
   const {showAlert} = useAlert();
 
   return (
@@ -38,9 +32,12 @@ const QuizList = () => {
           onPress={() => {
             showAlert({
               title: '평명',
-              description: `현재 기능은 작업 중에 있습니다.`,
-              type: 'okay',
-              onConfirm: () => {},
+              description: `기존에 풀던 문제의 데이터를 잃을 수 있습니다!
+계속하시겠습니까?`,
+              type: 'select',
+              onConfirm: () => {
+                navigation.navigate('bookmark');
+              },
             });
           }}>
           <Bookmark />

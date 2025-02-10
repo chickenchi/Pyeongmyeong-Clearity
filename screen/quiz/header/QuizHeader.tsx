@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import {List, Logo, Pause, Play} from '@assets/svgs/HeaderSvg';
+import {List, Logo, Pause, Play} from '@assets/svgs/HeaderSVG';
 
 import {useRecoilState} from 'recoil';
 import {

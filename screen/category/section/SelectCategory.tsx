@@ -2,7 +2,6 @@ import {BackToCategory, Search} from '@assets/svgs/CategorySVG';
 import {currentCategoryScreenState} from '@atoms/category/CategoryAtom';
 
 import {
-  ageState,
   ageElementState,
   difficultyElementState,
   categoryElementState,
@@ -15,11 +14,12 @@ import {
   TouchableOpacity,
   Text,
   Dimensions,
-  Image,
   TextInput,
 } from 'react-native';
 
 import {useRecoilState} from 'recoil';
+import {useCustomAge} from './selectCategoryPopup/CustomAgeProvider';
+import {CustomAgeManager} from './selectCategoryPopup/CustomAgeManager';
 
 export type RootStackParam = {
   category: undefined;
@@ -29,15 +29,35 @@ let ageItems = ['~7세', '초등', '중등', '고등', '일반', '사용자 지�
 
 const AgeTypeItem = () => {
   const [age, setAge] = useRecoilState(ageElementState);
+  const {showCustomAge} = useCustomAge();
 
   const handleAge = (selectedAge: string) => {
-    const newAgeSet =
-      selectedAge === '사용자 지정' ? new Set<string>() : new Set(age);
-    if (newAgeSet.has(selectedAge)) newAgeSet.delete(selectedAge);
-    else {
+    const newAgeSet = new Set(age);
+
+    if (newAgeSet.has(selectedAge)) {
+      newAgeSet.delete(selectedAge);
+    } else {
+      if (selectedAge === '사용자 지정') {
+        newAgeSet.clear();
+        showCustomAge({
+          onConfirm: () => {
+            alert('asdf');
+          },
+          onCancel: () => {
+            resetAge();
+          },
+        });
+      }
       if (newAgeSet.has('사용자 지정')) newAgeSet.delete('사용자 지정');
+
       newAgeSet.add(selectedAge);
     }
+    setAge(newAgeSet);
+  };
+
+  const resetAge = () => {
+    const newAgeSet = new Set<string>();
+
     setAge(newAgeSet);
   };
 
@@ -48,6 +68,7 @@ const AgeTypeItem = () => {
 
   return (
     <View style={styles.typeView}>
+      <CustomAgeManager />
       <Text style={styles.typeTitle}>연령대</Text>
 
       <View style={styles.typeItemView}>
@@ -174,7 +195,10 @@ const SelectCategory = () => {
 
       {currentCategory === 'selectCategory' && (
         <View style={styles.searchView}>
-          <TextInput style={styles.search} />
+          <TextInput
+            underlineColorAndroid="transparent"
+            style={styles.search}
+          />
           <TouchableOpacity style={styles.searchBtn}>
             <Search />
           </TouchableOpacity>
@@ -182,8 +206,8 @@ const SelectCategory = () => {
       )}
 
       {currentCategory === 'selectAge' && AgeTypeItem()}
-      {currentCategory === 'selectDifficulty' && DifficultyTypeItem()}
       {currentCategory === 'selectCategory' && CategoryTypeItem()}
+      {currentCategory === 'selectDifficulty' && DifficultyTypeItem()}
     </SafeAreaView>
   );
 };
@@ -230,10 +254,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
 
     marginBottom: 30,
-    paddingLeft: 10,
   },
   search: {
-    width: '87%',
+    width: '100%',
+    height: '100%',
+
+    paddingLeft: 10,
 
     color: '#C1C1C1',
   },
@@ -258,12 +284,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
     width: 400,
-    height: 700,
+    height: 'auto',
 
     flexDirection: 'row',
     flexWrap: 'wrap',
 
-    marginTop: 30,
+    marginTop: 10,
   },
   typeTitle: {
     fontSize: 24,
